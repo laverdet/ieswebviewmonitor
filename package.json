@@ -1,0 +1,17 @@
+{
+  "name": "ieswebviewmonitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dom_monitor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@laverdet/eslint-config": "github:laverdet/eslint-config",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "eslint": "^8.22.0"
+  }
+}
