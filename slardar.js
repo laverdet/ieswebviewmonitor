@@ -22,12 +22,12 @@ if (t && typeof t[e] !== 'function') {
 
 	setTimeout(() => {
 		try {
-			t[f](a, s);
+			t[f](__spreadArray, s);
 			t[f](v, l);
 		} catch (n) {}
 
-		var e = function(n, t) {
-			return (e = Object.setPrototypeOf || {
+		var extendStatics = function(n, t) {
+			return (extendStatics = Object.setPrototypeOf || {
 				__proto__: [],
 			} instanceof Array && function(n, t) {
 				n.__proto__ = t;
@@ -40,19 +40,19 @@ if (t && typeof t[e] !== 'function') {
 			})(n, t);
 		};
 
-		function n(n, t) {
+		function __extends(n, t) {
 			if (typeof t !== 'function' && t !== null) throw new TypeError('Class extends value ' + String(t) + ' is not a constructor or null');
 
 			function r() {
 				this.constructor = n;
 			}
 
-			e(n, t);
+			extendStatics(n, t);
 			n.prototype = t === null ? Object.create(t) : (r.prototype = t.prototype, new r());
 		}
 
-		var H = function() {
-			return (H = Object.assign || function(n) {
+		var __assign = function() {
+			return (__assign = Object.assign || function(n) {
 				for (var t, r = 1, e = arguments.length; r < e; r++) {
 					for (const o in t = arguments[r]) {
 						if (Object.prototype.hasOwnProperty.call(t, o)) {
@@ -65,7 +65,7 @@ if (t && typeof t[e] !== 'function') {
 			}).apply(this, arguments);
 		};
 
-		function T(n) {
+		function __values(n) {
 			const t = typeof Symbol === 'function' && Symbol.iterator;
 			const r = t && n[t];
 			let e = 0;
@@ -83,7 +83,8 @@ if (t && typeof t[e] !== 'function') {
 			throw new TypeError(t ? 'Object is not iterable.' : 'Symbol.iterator is not defined.');
 		}
 
-		function L(n, t) {
+		// Reads values from an `Iterable` or `ArrayLike` object and returns the resulting array
+		function __read(n, t) {
 			let r = typeof Symbol === 'function' && n[Symbol.iterator];
 			if (!r) return n;
 			let e;
@@ -110,55 +111,55 @@ if (t && typeof t[e] !== 'function') {
 			return u;
 		}
 
-		function a(n, t, r) {
-			if (r || arguments.length === 2) {
-				for (var e, o = 0, i = t.length; o < i; o++) {
-					if (!(!e && o in t)) {
-						(e = e || Array.prototype.slice.call(t, 0, o))[o] = t[o];
+		function __spreadArray(to, from, pack) {
+			if (pack || arguments.length === 2) {
+				for (var e, o = 0, i = from.length; o < i; o++) {
+					if (!(!e && o in from)) {
+						(e = e || Array.prototype.slice.call(from, 0, o))[o] = from[o];
 					}
 				}
 			}
-			return n.concat(e || Array.prototype.slice.call(t));
+			return to.concat(e || Array.prototype.slice.call(from));
 		}
 
-		function y(n) {
-			return typeof n === 'object' && n !== null && !c(n);
+		function isObject(n) {
+			return typeof n === 'object' && n !== null && !isArray(n);
 		}
 
-		function o(n) {
+		function isObject2(n) {
 			return Object.prototype.toString.call(n) === '[object Object]';
 		}
 
-		function w(n) {
+		function isFunction(n) {
 			return typeof n === 'function';
 		}
 
-		function b(n) {
+		function isString(n) {
 			return Object.prototype.toString.call(n) === '[object String]';
 		}
 
-		function c(n) {
+		function isArray(n) {
 			return Object.prototype.toString.call(n) === '[object Array]';
 		}
 
-		function i(n) {
-			return typeof Event !== 'undefined' && function(n, t) {
+		function isEvent(n) {
+			return typeof Event !== 'undefined' && function(n, Event) {
 				try {
-					return n instanceof t;
+					return n instanceof Event;
 				} catch (n) {
 
 				}
 			}(n, Event);
 		}
 
-		function u(n, t) {
+		function hasOwnProperty(n, t) {
 			return Object.prototype.hasOwnProperty.call(n, t);
 		}
 
 		function f(n, t) {
-			if (y(n)) {
+			if (isObject(n)) {
 				for (const r in n) {
-					if (u(n, r)) {
+					if (hasOwnProperty(n, r)) {
 						t.call(null, r, n[r]);
 					}
 				}
@@ -175,7 +176,7 @@ if (t && typeof t[e] !== 'function') {
 
 					for (r in t) {
 						if (Object.prototype.hasOwnProperty.call(t, r) && undefined !== t[r]) {
-							if (y(t[r]) && v(t[r])) e[r] = s(y(n[r]) ? n[r] : {}, t[r]); else if (c(t[r])) e[r] = t[r].slice(); else e[r] = t[r];
+							if (isObject(t[r]) && v(t[r])) e[r] = s(isObject(n[r]) ? n[r] : {}, t[r]); else if (isArray(t[r])) e[r] = t[r].slice(); else e[r] = t[r];
 						}
 					}
 
@@ -211,11 +212,11 @@ if (t && typeof t[e] !== 'function') {
 
 			for (r in t) {
 				if (Object.prototype.hasOwnProperty.call(t, r) && undefined !== t[r]) {
-					if (y(t[r]) && v(t[r])) { e[r] = s(y(n[r]) ? n[r] : {}, t[r]) } else if (c(n[r]) || c(t[r])) {
+					if (isObject(t[r]) && v(t[r])) { e[r] = s(isObject(n[r]) ? n[r] : {}, t[r]) } else if (isArray(n[r]) || isArray(t[r])) {
 						e[r] = function t(n, r) {
-							n = c(n) ? n : [];
-							r = c(r) ? r : [];
-							return Array.prototype.concat.call(n, r).map(n => !(n instanceof RegExp) && (c(n) || y(n) && v(n)) ? c(n) ? t([], n) : s({}, n) : n);
+							n = isArray(n) ? n : [];
+							r = isArray(r) ? r : [];
+							return Array.prototype.concat.call(n, r).map(n => !(n instanceof RegExp) && (isArray(n) || isObject(n) && v(n)) ? isArray(n) ? t([], n) : s({}, n) : n);
 						}(n[r], t[r]);
 					} else { e[r] = t[r] }
 				}
@@ -225,7 +226,7 @@ if (t && typeof t[e] !== 'function') {
 		}
 
 		function l(n, t) {
-			if (c(n) && n.length !== 0) {
+			if (isArray(n) && n.length !== 0) {
 				for (let r = 0; r < n.length;) {
 					if (n[r] === t) return 1;
 					r++;
@@ -234,11 +235,11 @@ if (t && typeof t[e] !== 'function') {
 		}
 
 		function d() {
-			return Boolean(y(window));
+			return Boolean(isObject(window));
 		}
 
 		function h() {
-			return d() && y(window.performance) && Boolean(y(window.performance.timing));
+			return d() && isObject(window.performance) && Boolean(isObject(window.performance.timing));
 		}
 
 		function p(n) {
@@ -261,42 +262,44 @@ if (t && typeof t[e] !== 'function') {
 			};
 		}
 
-		function m(n, t) {
-			return !(!n || !t) && (g.test(n) || M.test(t));
+		function isSensitiveHeader(name, value) {
+			return !(!name || !value) && (nameRegExp.test(name) || valueRegExp.test(value));
 		}
 
-		var g = new RegExp('(' + [ 'cookie', 'auth', 'jwt', 'token', 'key', 'ticket', 'secret', 'credential', 'session', 'password' ].join('|') + ')', 'i');
-		var M = new RegExp('(' + [ 'bearer', 'session' ].join('|') + ')', 'i');
+		var nameRegExp = new RegExp('(' + [ 'cookie', 'auth', 'jwt', 'token', 'key', 'ticket', 'secret', 'credential', 'session', 'password' ].join('|') + ')', 'i');
+		var valueRegExp = new RegExp('(' + [ 'bearer', 'session' ].join('|') + ')', 'i');
 
-		function j() {}
+		function nothing() {}
 
-		function N() {
+		function documentReadyStateComplete() {
 			return document.readyState === 'complete';
 		}
 
-		function B(n) {
-			if (document.readyState !== 'complete') {
+		function onDocumentReady(fn) {
+			if (document.readyState === 'complete') {
+				fn();
+			} else {
 				window.addEventListener('load', () => {
 					setTimeout(() => {
-						n();
+						fn();
 					}, 0);
 				}, true);
-			} else { n() }
+			}
 		}
 
-		function x(n) {
+		function lengthOf(n) {
 			const t = Object.prototype.toString.call(n) === '[object String]';
 			return n ? t ? n.length : ArrayBuffer && n instanceof ArrayBuffer ? n.byteLength : window.Blob && n instanceof Blob ? n.size : n.length || 0 : 0;
 		}
 
-		function O(n) {
+		function renderHeaders(n) {
 			if (!n) return '';
-			if (!w(n.forEach)) return '';
+			if (!isFunction(n.forEach)) return '';
 			const r = [];
 			n.forEach(n => {
 				let t;
 
-				if (c(n) && n[0] && !m(n[0], n[1])) {
+				if (isArray(n) && n[0] && !isSensitiveHeader(n[0], n[1])) {
 					t = n[0];
 					n = n[1] || '';
 					r.push(t + ': ' + n);
@@ -318,10 +321,10 @@ if (t && typeof t[e] !== 'function') {
 		}
 
 		function S(n) {
-			return c(n) && n.length ? function(n) {
+			return isArray(n) && n.length ? function(n) {
 				for (var t = [], r = n.length, e = 0; e < r; e++) {
 					const o = n[e];
-					if (b(o)) { t.push(o.replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1')) } else if (o && o.source) {
+					if (isString(o)) { t.push(o.replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1')) } else if (o && o.source) {
 						t.push(o.source);
 					}
 				}
@@ -342,19 +345,19 @@ if (t && typeof t[e] !== 'function') {
 		const k = function() {
 			const n = 'unknown';
 			const t = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-			return t && b(t.effectiveType) ? t.effectiveType : n;
+			return t && isString(t.effectiveType) ? t.effectiveType : n;
 		};
-		const F = function(t, r) {
-			if (w(t)) {
-				if (w(window.addEventListener)) {
+		const onBeforeUnload = function(t, r) {
+			if (isFunction(t)) {
+				if (isFunction(window.addEventListener)) {
 					window.addEventListener('unload', t);
 					window.addEventListener('beforeunload', t);
 					window.addEventListener('pagehide', t);
 				}
 
-				if (w(document.addEventListener)) {
+				if (isFunction(document.addEventListener)) {
 					document.addEventListener('visibilitychange', n => {
-						if (w(r)) { r(n) } else if (document.visibilityState === 'hidden') {
+						if (isFunction(r)) { r(n) } else if (document.visibilityState === 'hidden') {
 							t(n);
 						}
 					});
@@ -449,7 +452,7 @@ if (t && typeof t[e] !== 'function') {
 			function o() {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
-				const r = e.apply(undefined, a([], L(n), true));
+				const r = e.apply(undefined, __spreadArray([], __read(n), true));
 				o.returns = r;
 				o.resolved = false;
 
@@ -473,7 +476,7 @@ if (t && typeof t[e] !== 'function') {
 			return Object.defineProperty({
 				then(r) {
 					function e() {
-						return n.apply(undefined, a([], L(t.map(n => n.returns)), true));
+						return n.apply(undefined, __spreadArray([], __read(t.map(n => n.returns)), true));
 					}
 
 					let o;
@@ -481,7 +484,7 @@ if (t && typeof t[e] !== 'function') {
 					var n = K(function() {
 						for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
-						return i ? o : (i = false, o = r.apply(undefined, a([], L(n), true)));
+						return i ? o : (i = false, o = r.apply(undefined, __spreadArray([], __read(n), true)));
 					});
 					if (u()) { setTimeout(e) } else {
 						t.forEach(n => {
@@ -499,9 +502,11 @@ if (t && typeof t[e] !== 'function') {
 			});
 		};
 
-		function Z(n) {
+		function extractDomPath(n) {
 			try {
-				for (var t, r = n, e = [], o = 0, i = 0, u = ' > '.length; r && o++ < 5 && !((t = function(n) {
+				const u = ' > '.length;
+				const e = [];
+				for (var t, r = n, o = 0, i = 0; r && o++ < 5 && !((t = function(n) {
 					let t;
 					let r;
 					let e;
@@ -516,7 +521,7 @@ if (t && typeof t[e] !== 'function') {
 					}
 
 					n = i.className;
-					if (n && b(n)) for (t = n.split(/\s+/), o = 0; o < t.length; o++) u.push('.' + t[o]);
+					if (n && isString(n)) for (t = n.split(/\s+/), o = 0; o < t.length; o++) u.push('.' + t[o]);
 					const c = [ 'type', 'name', 'title', 'alt' ];
 
 					for (o = 0; o < c.length; o++) {
@@ -540,7 +545,7 @@ if (t && typeof t[e] !== 'function') {
 			}
 		}
 
-		function nn() {
+		function getFetch() {
 			try {
 				new Headers();
 				new Request('');
@@ -549,28 +554,28 @@ if (t && typeof t[e] !== 'function') {
 			} catch (n) {}
 		}
 
-		function tn() {
-			if (y(window)) return window;
+		function getWindow() {
+			if (isObject(window)) return window;
 		}
 
-		function rn() {
-			if (y(document)) return document;
+		function getDocument() {
+			if (isObject(document)) return document;
 		}
 
-		function en() {
-			if (tn() && y(window.performance)) return window.performance;
+		function getPerformance() {
+			if (getWindow() && isObject(window.performance)) return window.performance;
 		}
 
-		function on() {
-			if (w(XMLHttpRequest)) return XMLHttpRequest;
+		function getXMLHttpRequest() {
+			if (isFunction(XMLHttpRequest)) return XMLHttpRequest;
 		}
 
-		function un() {
-			if (tn() && w(window.MutationObserver)) return window.MutationObserver;
+		function getMutationObserver() {
+			if (getWindow() && isFunction(window.MutationObserver)) return window.MutationObserver;
 		}
 
-		function cn() {
-			if (tn() && w(window.PerformanceObserver)) return window.PerformanceObserver;
+		function getPerformanceObserver() {
+			if (getWindow() && isFunction(window.PerformanceObserver)) return window.PerformanceObserver;
 		}
 
 		function fn(n, t, r) {
@@ -583,31 +588,27 @@ if (t && typeof t[e] !== 'function') {
 			return e && n && o && t;
 		}
 
-		const an = function(i, u, c) {
-			return function() {
-				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
+		const makeHook = function(object, property, ctor) {
+			return function(...n) {
+				if (!object) return nothing;
+				const original = object[property];
+				const wrapper = ctor(original, ...n);
+				let o = wrapper;
 
-				if (!i) return j;
-				const r = i[u];
-				const e = c.apply(undefined, a([ r ], L(n), true));
-				let o = e;
-
-				if (w(o)) {
-					o = function() {
-						for (var t = [], n = 0; n < arguments.length; n++) t[n] = arguments[n];
-
+				if (isFunction(o)) {
+					o = function(...args) {
 						try {
-							return e.apply(this, t);
+							return wrapper.apply(this, args);
 						} catch (n) {
-							return w(r) && r.apply(this, t);
+							return isFunction(original) && original.apply(this, args);
 						}
 					};
 				}
 
-				i[u] = o;
+				object[property] = o;
 				return function(n) {
-					if (!(n && o !== i[u])) {
-						i[u] = r;
+					if (!(n && o !== object[property])) {
+						object[property] = original;
 					}
 				};
 			};
@@ -642,18 +643,18 @@ if (t && typeof t[e] !== 'function') {
 				t();
 			} ];
 		};
-		const hn = function(n, t, r, e) {
-			if (undefined === t) {
-				t = {};
+		const invoke2 = function(n, nextArg1, nextArg2, args) {
+			if (undefined === nextArg1) {
+				nextArg1 = {};
 			}
 
-			if (undefined === e) {
-				e = [];
+			if (undefined === args) {
+				args = [];
 			}
 
 			try {
-				const o = n.apply(undefined, a([], L(e), true));
-				return o && o(t, r) || [];
+				const o = n.apply(undefined, [ ...args ]);
+				return o && o(nextArg1, nextArg2) || [];
 			} catch (n) {
 				return [];
 			}
@@ -711,27 +712,27 @@ if (t && typeof t[e] !== 'function') {
 				return r && r.now ? r.now() : (Date.now ? Date.now() : +new Date()) - (n && n.navigationStart || 0);
 			}, function(n) {
 				const t = (r || {}).getEntriesByType;
-				return w(t) && t.call(r, n) || [];
+				return isFunction(t) && t.call(r, n) || [];
 			}, function() {
 				const n = (r || {}).clearResourceTimings;
 
-				if (w(n)) {
+				if (isFunction(n)) {
 					n.call(r);
 				}
 			}, function(n) {
 				const t = (r || {}).getEntriesByName;
-				return w(t) && t.call(r, n) || [];
+				return isFunction(t) && t.call(r, n) || [];
 			} ];
 		};
 		const wn = function(n) {
 			let t;
 			const r = window.requestAnimationFrame;
 			const e = window.cancelAnimationFrame;
-			const o = !w(r) || n && document && document.hidden ? function(n) {
+			const o = !isFunction(r) || n && document && document.hidden ? function(n) {
 				n(0);
 				return 0;
 			} : r;
-			const i = w(e) ? e : j;
+			const i = isFunction(e) ? e : nothing;
 			return [ function(n) {
 				if (t) {
 					i(t);
@@ -743,15 +744,15 @@ if (t && typeof t[e] !== 'function') {
 
 		function bn(n, t) {
 			if (undefined === t) {
-				t = en();
+				t = getPerformance();
 			}
 
-			return (0, L(yn(t), 5)[4])(n).pop();
+			return (0, __read(yn(t), 5)[4])(n).pop();
 		}
 
-		function _n(n, e) {
+		function hookXHR(n, e) {
 			if (undefined === n) {
-				n = on();
+				n = getXMLHttpRequest();
 			}
 
 			if (undefined === e) {
@@ -761,12 +762,12 @@ if (t && typeof t[e] !== 'function') {
 			const o = n && n.prototype;
 			if (o) {
 				return function(n, t) {
-					var r = L(dn(n), 2);
+					var r = __read(dn(n), 2);
 					var n = r[0];
 					var r = r[1];
-					an(o, 'open', xn)();
-					an(o, 'send', Tn)(n, t, e || '');
-					an(o, 'setRequestHeader', On)();
+					makeHook(o, 'open', xn)();
+					makeHook(o, 'send', Tn)(n, t, e || '');
+					makeHook(o, 'setRequestHeader', On)();
 					return [ r ];
 				};
 			}
@@ -775,7 +776,7 @@ if (t && typeof t[e] !== 'function') {
 		function gn(n, t, r) {
 			var e = '';
 			var e = vn(n, r) ? n.url : n;
-			return e = !(t = undefined === t ? true : t) ? b(e) ? e.split('?')[0] : e : e;
+			return e = !(t = undefined === t ? true : t) ? isString(e) ? e.split('?')[0] : e : e;
 		}
 
 		const Mn = function(n, t, r, e) {
@@ -788,7 +789,7 @@ if (t && typeof t[e] !== 'function') {
 				ev_type: 'ajax',
 				ax_status: (n.status || 0).toString(),
 				ax_type: o,
-				ax_request_header: O(i || []),
+				ax_request_header: renderHeaders(i || []),
 				ax_domain: '',
 				ax_duration: 0,
 				ax_path: '',
@@ -801,22 +802,22 @@ if (t && typeof t[e] !== 'function') {
 
 			if (typeof n.getAllResponseHeaders === 'function') {
 				o.ax_response_header = function(t) {
-					if (b(t)) {
+					if (isString(t)) {
 						const n = t.split('\r\n');
 						const r = [];
 						n.forEach((n, t) => {
-							if (n && w(n.split)) {
+							if (n && isFunction(n.split)) {
 								n = n.split(': ');
 
-								if (!m(n[0], n[1])) {
+								if (!isSensitiveHeader(n[0], n[1])) {
 									r.push([ n[0], n[1] ]);
 								}
 							}
 						});
-						return O(r);
+						return renderHeaders(r);
 					}
 
-					return y(t) ? O(Object.keys(t).filter(n => !m(n, t[n])).map(n => [ n, t[n] ])) : t;
+					return isObject(t) ? renderHeaders(Object.keys(t).filter(n => !isSensitiveHeader(n, t[n])).map(n => [ n, t[n] ])) : t;
 				}(n.getAllResponseHeaders());
 			}
 
@@ -832,11 +833,11 @@ if (t && typeof t[e] !== 'function') {
 
 			if (n.status === 200) {
 				o.ax_size = function(n) {
-					if (n.responseType === '' || n.responseType === 'text') return x(n.responseText);
-					if (n.response) return x(n.response);
+					if (n.responseType === '' || n.responseType === 'text') return lengthOf(n.responseText);
+					if (n.response) return lengthOf(n.response);
 
 					try {
-						return x(n.responseText);
+						return lengthOf(n.responseText);
 					} catch (n) {
 						return 0;
 					}
@@ -857,11 +858,11 @@ if (t && typeof t[e] !== 'function') {
 			return o;
 		};
 		const jn = 'AjaxMonitor';
-		var xn = function(o) {
+		const xn = function(o) {
 			return function() {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
-				var r = L(n, 2);
+				var r = __read(n, 2);
 				const e = r[0];
 				var r = r[1];
 				this._url = r || '';
@@ -869,7 +870,7 @@ if (t && typeof t[e] !== 'function') {
 				return o.apply(this, n);
 			};
 		};
-		var On = function(r) {
+		const On = function(r) {
 			return function() {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
@@ -880,7 +881,7 @@ if (t && typeof t[e] !== 'function') {
 				return r && r.apply(this, n);
 			};
 		};
-		var Tn = function(o, i, u, f) {
+		const Tn = function(o, i, u, f) {
 			let a = null;
 			return function() {
 				for (var n, t, c, r = [], e = 0; e < arguments.length; e++) r[e] = arguments[e];
@@ -895,7 +896,7 @@ if (t && typeof t[e] !== 'function') {
 					}
 				}
 
-				an(c = this, 'onreadystatechange', (r, e, o, i, u) => function() {
+				makeHook(c = this, 'onreadystatechange', (r, e, o, i, u) => function() {
 					for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
 					if (this.readyState === 4 && i) {
@@ -921,8 +922,8 @@ if (t && typeof t[e] !== 'function') {
 				n.forEach((n, t) => {
 					r.push([ t, n ]);
 				});
-			} else if (c(n)) { r.push.apply(r, a([], L(n), true)) } else { r.push.apply(r, a([], L(Object.entries(n)), true)) }
-			return O(r);
+			} else if (isArray(n)) { r.push.apply(r, __spreadArray([], __read(n), true)) } else { r.push.apply(r, __spreadArray([], __read(Object.entries(n)), true)) }
+			return renderHeaders(r);
 		}
 
 		function Sn(n, t, r, e, o, i) {
@@ -937,7 +938,7 @@ if (t && typeof t[e] !== 'function') {
 						if (n) {
 							if (sn(n, r)) return n.get(t) || undefined;
 
-							if (c(n)) {
+							if (isArray(n)) {
 								r = n.find(n => t === n[0]);
 								return r == null ? undefined : r[1];
 							}
@@ -949,13 +950,11 @@ if (t && typeof t[e] !== 'function') {
 			}
 		}
 
-		function Pn(e, o, i, u) {
-			if (undefined === e && (e = nn() && tn()), undefined === o && (o = window.Headers), undefined === i && (i = window.Request), undefined === u && (u = location === null || undefined === location ? undefined : location.href), e && o && i) {
+		function hookFetch(e, o, i, u) {
+			if (undefined === e && (e = getFetch() && getWindow()), undefined === o && (o = window.Headers), undefined === i && (i = window.Request), undefined === u && (u = location === null || undefined === location ? undefined : location.href), e && o && i) {
 				return function(n, t) {
-					var r = L(dn(n), 2);
-					var n = r[0];
-					var r = r[1];
-					an(e, 'fetch', Fn)(n, t, o, i, u || '');
+					const [ n2, r ] = dn(n);
+					makeHook(e, 'fetch', Fn)(n2, t, o, i, u || '');
 					return [ r ];
 				};
 			}
@@ -988,18 +987,18 @@ if (t && typeof t[e] !== 'function') {
 
 		function Rn(n, u) {
 			const c = [ 'img', 'script', 'iframe', 'link', 'audio', 'video', 'source' ];
-			const t = (n = L(pn(n, n => {
+			const t = (n = __read(pn(n, n => {
 				let t; let r;
 
 				try {
-					for (var e = T(n), o = e.next(); !o.done; o = e.next()) {
+					for (var e = __values(n), o = e.next(); !o.done; o = e.next()) {
 						const i = o.value;
 
 						if (i.type === 'childList' && function n(t, r) {
 							let e; let o;
 
 							try {
-								for (var i = T(t), u = i.next(); !u.done; u = i.next()) {
+								for (var i = __values(t), u = i.next(); !u.done; u = i.next()) {
 									const c = u.value;
 									if (l(r, c.nodeName.toLowerCase()) || c.children && n(c.children, r)) return 1;
 								}
@@ -1067,7 +1066,7 @@ if (t && typeof t[e] !== 'function') {
 				if (this._method !== 'GET') return e.apply(this, n);
 				const r = u += 2;
 				o(r, Date.now());
-				an(this, 'onreadystatechange', t => function(n) {
+				makeHook(this, 'onreadystatechange', t => function(n) {
 					if (t) {
 						t.call(this, n);
 					}
@@ -1085,10 +1084,10 @@ if (t && typeof t[e] !== 'function') {
 			return function() {
 				for (var n, o = [], t = 0; t < arguments.length; t++) o[t] = arguments[t];
 
-				return ((n = o[0])?.method || (n = o[1])?.method || 'GET') !== 'GET' ? i.apply(undefined, a([], L(o), true)) : new Promise((t, r) => {
+				return ((n = o[0])?.method || (n = o[1])?.method || 'GET') !== 'GET' ? i.apply(undefined, __spreadArray([], __read(o), true)) : new Promise((t, r) => {
 					const e = f += 2;
 					u(e, Date.now());
-					i.apply(undefined, a([], L(o), true)).then(n => {
+					i.apply(undefined, __spreadArray([], __read(o), true)).then(n => {
 						c(e);
 						t(n);
 					}, n => {
@@ -1109,7 +1108,7 @@ if (t && typeof t[e] !== 'function') {
 				let u;
 				let c;
 				let v;
-				let s = L([ f = [], a = [], function(u, c) {
+				let s = __read([ f = [], a = [], function(u, c) {
 					return function(n) {
 						const t = n.startTime;
 						const r = n.duration;
@@ -1141,11 +1140,11 @@ if (t && typeof t[e] !== 'function') {
 				const l = s[0];
 				const d = s[1];
 				const h = s[2];
-				var p = L((e = M, o = j, p = L([ i = {}, function(n, t) {
+				var p = __read((e = M, o = j, p = __read([ i = {}, function(n, t) {
 					return i[n] = t;
 				}, function(n) {
 					return delete i[n];
-				} ], 3), w = p[0], s = p[1], p = p[2], u = o && an(o.prototype, 'open', An)(), c = o && an(o.prototype, 'send', In)(s, p), v = e && an(e, 'fetch', Cn)(s, p), [ w, function() {
+				} ], 3), w = p[0], s = p[1], p = p[2], u = o && makeHook(o.prototype, 'open', An)(), c = o && makeHook(o.prototype, 'send', In)(s, p), v = e && makeHook(e, 'fetch', Cn)(s, p), [ w, function() {
 					if (u) {
 						u(false);
 					}
@@ -1160,7 +1159,7 @@ if (t && typeof t[e] !== 'function') {
 				} ]), 2);
 				const m = p[0];
 				const y = p[1];
-				var w = L(Rn(O, () => r(t() + 5e3)) || [], 2);
+				var w = __read(Rn(O, () => r(t() + 5e3)) || [], 2);
 				var p = w[0];
 				const b = w[1];
 
@@ -1175,7 +1174,7 @@ if (t && typeof t[e] !== 'function') {
 						const c = [];
 
 						try {
-							for (var f = T(t), a = f.next(); !a.done; a = f.next()) {
+							for (var f = __values(t), a = f.next(); !a.done; a = f.next()) {
 								const v = a.value;
 								c.push([ v.start, 0 ], [ v.end, 1 ]);
 							}
@@ -1194,7 +1193,7 @@ if (t && typeof t[e] !== 'function') {
 						}
 
 						try {
-							for (var s = T(n), l = s.next(); !l.done; l = s.next()) {
+							for (var s = __values(n), l = s.next(); !l.done; l = s.next()) {
 								const d = l.value;
 								c.push([ d, 0 ]);
 							}
@@ -1215,7 +1214,7 @@ if (t && typeof t[e] !== 'function') {
 						c.sort((n, t) => n[0] - t[0]);
 
 						for (let h = n.length, p = c.length - 1; p >= 0; p--) {
-							const m = L(c[p], 2);
+							const m = __read(c[p], 2);
 							const y = m[0];
 
 							switch (m[1]) {
@@ -1242,7 +1241,7 @@ if (t && typeof t[e] !== 'function') {
 					}(m), d, t);
 				}
 
-				var w = L(mn(x, h(n => {
+				var w = __read(mn(x, h(n => {
 					const t = n.startTime;
 					var n = n.duration;
 					return r(t + n + 5e3);
@@ -1268,7 +1267,7 @@ if (t && typeof t[e] !== 'function') {
 
 		function Nn(C) {
 			if (undefined === C) {
-				C = en();
+				C = getPerformance();
 			}
 
 			return function(n, f) {
@@ -1290,18 +1289,18 @@ if (t && typeof t[e] !== 'function') {
 					isAsync: 0,
 					prePerformanceObserver: e,
 				};
-				var t = L(st(s), 3);
+				var t = __read(st(s), 3);
 				let m = t[0];
 				let y = t[1];
 				let w = t[2];
-				const c = L(yn(C), 2)[1];
-				var t = L(at(f), 2);
+				const c = __read(yn(C), 2)[1];
+				var t = __read(at(f), 2);
 				const b = t[0];
 				const _ = t[1];
 				const g = ft();
-				let M = L(hn(ot), 1)[0];
-				let j = L(hn(Qn, n), 1)[0];
-				const x = L(hn(Kn, {
+				let M = __read(invoke2(ot), 1)[0];
+				let j = __read(invoke2(Qn, n), 1)[0];
+				const x = __read(invoke2(Kn, {
 					prePerformanceObserver: e,
 				}, n => {
 					n = n.lcp;
@@ -1310,13 +1309,13 @@ if (t && typeof t[e] !== 'function') {
 					});
 				}), 1)[0];
 				const O = K(n => n.fid);
-				const T = L(hn(Wn, 0, O), 1)[0];
+				const T = __read(invoke2(Wn, 0, O), 1)[0];
 				let E = K(Y);
-				let S = L(hn(tt, 0, E), 1)[0];
+				let S = __read(invoke2(tt, 0, E), 1)[0];
 				let P = K(n => {
 					if (n && n > 0) return Math.max(Math.round(n - l), 0);
 				});
-				var n = L(hn(i, n), 4);
+				var n = __read(invoke2(i, n), 4);
 				let k = n[0];
 				let R = n[3];
 				let D = Q(P);
@@ -1328,7 +1327,7 @@ if (t && typeof t[e] !== 'function') {
 						const r = j().mpfid;
 						var e = M();
 						const o = e && e.event.resources;
-						var i = L(yn(C), 3);
+						var i = __read(yn(C), 3);
 						var u = i[0];
 						var e = i[2];
 						var i = ct(u, e);
@@ -1394,8 +1393,8 @@ if (t && typeof t[e] !== 'function') {
 					}
 				};
 
-				B(() => o && (h = setTimeout(A, 200)));
-				F(() => {
+				onDocumentReady(() => o && (h = setTimeout(A, 200)));
+				onBeforeUnload(() => {
 					if (o && !b()) {
 						A(false);
 
@@ -1425,7 +1424,7 @@ if (t && typeof t[e] !== 'function') {
 						p();
 					}
 					s.isAsync = 1;
-					t = L(st(s), 3);
+					t = __read(st(s), 3);
 					m = t[0];
 					y = t[1];
 					w = t[2];
@@ -1436,11 +1435,11 @@ if (t && typeof t[e] !== 'function') {
 						isAsync: 1,
 						prePerformanceObserver: e,
 					};
-					var n = L(hn(ot, t), 1);
+					var n = __read(invoke2(ot, t), 1);
 					M = n[0];
-					n = L(hn(Qn, t), 1);
+					n = __read(invoke2(Qn, t), 1);
 					j = n[0];
-					t = L(hn(i, { ...t, minValue: l }), 4);
+					t = __read(invoke2(i, { ...t, minValue: l }), 4);
 					k = t[0];
 					R = t[3];
 					P = K(n => {
@@ -1457,7 +1456,7 @@ if (t && typeof t[e] !== 'function') {
 
 					(E = K(Y))(r);
 					D = Q(P);
-					v = hn(zn);
+					v = invoke2(zn);
 				}, function() {
 					if (d && g() && !h) {
 						if (s.isAsync) {
@@ -1469,7 +1468,7 @@ if (t && typeof t[e] !== 'function') {
 					}
 				}, function() {
 					if (!D.resolved) {
-						A(!N());
+						A(!documentReadyStateComplete());
 					}
 
 					return y();
@@ -1478,7 +1477,7 @@ if (t && typeof t[e] !== 'function') {
 		}
 
 		const Bn = 'FetchMonitor';
-		var Fn = function(i, h, u, p, m, y) {
+		const Fn = function(i, h, u, p, m, y) {
 			return function(f, a) {
 				if (undefined === a) {
 					a = {};
@@ -1486,8 +1485,8 @@ if (t && typeof t[e] !== 'function') {
 
 				const v = gn(f, undefined, m);
 				if (!function(n) {
-					if (b(n)) {
-						const t = L(n.split(':'), 2);
+					if (isString(n)) {
+						const t = __read(n.split(':'), 2);
 						var n = t[0];
 						return !t[1] || n === 'http' || n === 'https';
 					}
@@ -1515,7 +1514,7 @@ if (t && typeof t[e] !== 'function') {
 							n = a.headers;
 							t = I;
 							r = l.trace_id;
-							if (sn(n, p)) n.append(t, r); else if (c(n)) n.push([ t, r ]); else n[t] = r;
+							if (sn(n, p)) n.append(t, r); else if (isArray(n)) n.push([ t, r ]); else n[t] = r;
 						}
 					}
 				} catch (n) {}
@@ -1546,7 +1545,7 @@ if (t && typeof t[e] !== 'function') {
 						l.ax_status = (r.status || 0).toString();
 						l.ax_duration = Date.now() - s;
 						l.ax_response_header = En(r.headers, p);
-						l.ax_request_header = En((t = f, e = a, i = m, u = new (o = p)(), vn(t, i) && t.headers && w(t.headers.forEach) && t.headers.forEach((n, t) => {
+						l.ax_request_header = En((t = f, e = a, i = m, u = new (o = p)(), vn(t, i) && t.headers && isFunction(t.headers.forEach) && t.headers.forEach((n, t) => {
 							u.append(t, n);
 						}), e.headers && new o(e.headers).forEach((n, t) => {
 							u.append(t, n);
@@ -1558,7 +1557,7 @@ if (t && typeof t[e] !== 'function') {
 							}
 						};
 
-						if (w((n = r.headers)?.has)) {
+						if (isFunction((n = r.headers)?.has)) {
 							if (r.headers.has('content-length')) {
 								l.ax_size = Number(r.headers.get('content-length')) || 0;
 							}
@@ -1604,7 +1603,7 @@ if (t && typeof t[e] !== 'function') {
 			var o = [].slice.call(undefined === o ? [] : o).reduceRight((n, t) => n + Un(t, r + 1, n > 0, e), 0);
 
 			if (o <= 0 && !t) {
-				if (!w(n.getBoundingClientRect)) return 0;
+				if (!isFunction(n.getBoundingClientRect)) return 0;
 				t = n.getBoundingClientRect() || {};
 				n = t.top;
 				t = t.height;
@@ -1614,11 +1613,11 @@ if (t && typeof t[e] !== 'function') {
 			return o + 1 + 0.5 * r;
 		};
 		const Xn = function(n) {
-			var t = L(undefined === n ? [] : n);
+			var t = __read(undefined === n ? [] : n);
 			var n = t[0];
 			var t = t.slice(1);
 			return t && t.reduce((n, t) => {
-				var r = L(n, 2);
+				var r = __read(n, 2);
 				const e = r[0];
 				var n = r[1];
 				var r = t.score - e.score;
@@ -1635,17 +1634,17 @@ if (t && typeof t[e] !== 'function') {
 			let n;
 
 			if (undefined === v) {
-				v = rn();
+				v = getDocument();
 			}
 
 			if (undefined === s) {
-				s = un();
+				s = getMutationObserver();
 			}
 
 			if (undefined === l) {
 				l = (n = function() {
-					const n = en();
-					if (n && y(n.timing)) return n.timing;
+					const n = getPerformance();
+					if (n && isObject(n.timing)) return n.timing;
 				}()).navigationStart;
 			}
 
@@ -1660,8 +1659,8 @@ if (t && typeof t[e] !== 'function') {
 				var e = Date.now();
 				var o = [];
 				var i = qn.concat(n.ignoreTags || []);
-				const u = L(wn(false), 1)[0];
-				var c = L(pn(s, () => u(t)), 2);
+				const u = __read(wn(false), 1)[0];
+				var c = __read(pn(s, () => u(t)), 2);
 				const f = c[0];
 				const a = c[1];
 				var n = function(n) {
@@ -1690,23 +1689,23 @@ if (t && typeof t[e] !== 'function') {
 		};
 		var Gn = function(b, _, g, M, j) {
 			if (undefined === b) {
-				b = on();
+				b = getXMLHttpRequest();
 			}
 
 			if (undefined === _) {
-				_ = nn() && tn();
+				_ = getFetch() && getWindow();
 			}
 
 			if (undefined === g) {
-				g = cn();
+				g = getPerformanceObserver();
 			}
 
 			if (undefined === M) {
-				M = un();
+				M = getMutationObserver();
 			}
 
 			if (undefined === j) {
-				j = en();
+				j = getPerformance();
 			}
 
 			return function(n, t, r) {
@@ -1734,15 +1733,15 @@ if (t && typeof t[e] !== 'function') {
 				var o = n.precollect;
 				var c = undefined === o ? [] : o;
 				var f = n.observer;
-				var n = L(yn(j), 5);
+				var n = __read(yn(j), 5);
 				const a = n[0];
 				const v = n[1];
 				const s = n[4];
-				var n = L(kn(v), 3);
+				var n = __read(kn(v), 3);
 				const l = n[0];
 				var d = n[1];
 				const h = n[2];
-				var i = L(Hn(_, b, g, M)(i ? [] : c, h, v), 3);
+				var i = __read(Hn(_, b, g, M)(i ? [] : c, h, v), 3);
 				const p = i[0];
 				var m = i[1];
 				const y = i[2];
@@ -1769,16 +1768,16 @@ if (t && typeof t[e] !== 'function') {
 		const $n = 'first-input';
 		var Wn = function(t, o) {
 			if (undefined === t) {
-				t = cn();
+				t = getPerformanceObserver();
 			}
 
 			if (undefined === o) {
-				o = en();
+				o = getPerformance();
 			}
 
 			return function(n, r) {
-				const e = L(yn(o), 3)[2];
-				(0, L(mn(t, n => {
+				const e = __read(yn(o), 3)[2];
+				(0, __read(mn(t, n => {
 					const t = n.processingStart;
 					var n = n.startTime;
 					return r && r({
@@ -1798,7 +1797,7 @@ if (t && typeof t[e] !== 'function') {
 		const Yn = [ 'keydown', 'click' ];
 		var Kn = function(c) {
 			if (undefined === c) {
-				c = cn();
+				c = getPerformanceObserver();
 			}
 
 			return function(n, t) {
@@ -1812,7 +1811,7 @@ if (t && typeof t[e] !== 'function') {
 						e = n;
 					}
 				});
-				var n = L(mn(c, n => {
+				var n = __read(mn(c, n => {
 					n = n.startTime;
 					e = n;
 				}), 2);
@@ -1840,7 +1839,7 @@ if (t && typeof t[e] !== 'function') {
 				Yn.forEach(n => {
 					window.addEventListener(n, u, false);
 				});
-				F(i);
+				onBeforeUnload(i);
 				return [ function() {
 					return {
 						lcp: e,
@@ -1850,14 +1849,14 @@ if (t && typeof t[e] !== 'function') {
 		};
 		var Qn = function(u) {
 			if (undefined === u) {
-				u = cn();
+				u = getPerformanceObserver();
 			}
 
 			return function(n) {
 				const t = [];
 				const r = n.isAsync;
 				const e = n.prePerformanceObserver;
-				const o = L(mn(u, n => t.push(n)), 2);
+				const o = __read(mn(u, n => t.push(n)), 2);
 				var n = o[0];
 				const i = o[1];
 
@@ -1887,11 +1886,11 @@ if (t && typeof t[e] !== 'function') {
 		const nt = 'first-paint';
 		var tt = function(o, c) {
 			if (undefined === o) {
-				o = cn();
+				o = getPerformanceObserver();
 			}
 
 			if (undefined === c) {
-				c = en();
+				c = getPerformance();
 			}
 
 			return function(n, i) {
@@ -1904,7 +1903,7 @@ if (t && typeof t[e] !== 'function') {
 				}
 
 				const u = {};
-				var r = L(yn(c), 3)[2];
+				var r = __read(yn(c), 3)[2];
 				const e = t();
 
 				if (e.fcp && e.fp) {
@@ -1912,7 +1911,7 @@ if (t && typeof t[e] !== 'function') {
 						i(e);
 					}
 				} else {
-					(0, L(mn(o, (n, t, r, e) => {
+					(0, __read(mn(o, (n, t, r, e) => {
 						const o = n.name;
 						var n = n.startTime;
 						u[o] = Math.round(n);
@@ -1937,7 +1936,7 @@ if (t && typeof t[e] !== 'function') {
 		const et = function(n, t) {
 			const r = [];
 			if (n.forEach(n => {
-				if (!(w(t) && t(n))) {
+				if (!(isFunction(t) && t(n))) {
 					r.push(n);
 				}
 			}), r.length) {
@@ -1953,11 +1952,11 @@ if (t && typeof t[e] !== 'function') {
 		};
 		var ot = function(f, a) {
 			if (undefined === f) {
-				f = en();
+				f = getPerformance();
 			}
 
 			if (undefined === a) {
-				a = cn();
+				a = getPerformanceObserver();
 			}
 
 			return function(n, t) {
@@ -1972,7 +1971,7 @@ if (t && typeof t[e] !== 'function') {
 				var r = n.observe;
 				var r = undefined !== r && r;
 				var i = n.checkIgnore;
-				var n = L(yn(f), 4);
+				var n = __read(yn(f), 4);
 				const u = n[2];
 				var n = n[3];
 				const c = function() {
@@ -1985,7 +1984,7 @@ if (t && typeof t[e] !== 'function') {
 
 				if (r) {
 					e(c());
-					(0, L(mn(a, (n, t, r) => t === 0 && e(r)), 1)[0])('resource');
+					(0, __read(mn(a, (n, t, r) => t === 0 && e(r)), 1)[0])('resource');
 				}
 
 				return [ function() {
@@ -2072,7 +2071,7 @@ if (t && typeof t[e] !== 'function') {
 		};
 		var ft = function() {
 			let n = true;
-			B(() => n = false);
+			onDocumentReady(() => n = false);
 			return function() {
 				return n;
 			};
@@ -2095,7 +2094,7 @@ if (t && typeof t[e] !== 'function') {
 		var vt = function(n, t, r, e) {
 			if (!n) return 0;
 			let o;
-			const i = L(n, 3);
+			const i = __read(n, 3);
 			const u = i[0];
 			var n = i[1];
 			const c = i[2];
@@ -2146,17 +2145,17 @@ if (t && typeof t[e] !== 'function') {
 
 		function ht(n) {
 			n = (t = n).tagName.toLowerCase() === 'link' ? 'href' : 'src';
-			return w(t.getAttribute) ? t.getAttribute(n) || '' : t[n] || '';
+			return isFunction(t.getAttribute) ? t.getAttribute(n) || '' : t[n] || '';
 			let t;
 		}
 
-		function pt(o, i, u) {
+		function hookStaticError(o, i, u) {
 			if (undefined === o) {
-				o = tn();
+				o = getWindow();
 			}
 
 			if (undefined === i) {
-				i = en();
+				i = getPerformance();
 			}
 
 			if (undefined === u) {
@@ -2164,7 +2163,7 @@ if (t && typeof t[e] !== 'function') {
 			}
 
 			return function(n, t) {
-				const r = L(yn(i), 3)[2];
+				const r = __read(yn(i), 3)[2];
 				const e = function() {
 					return r('resource');
 				};
@@ -2196,7 +2195,7 @@ if (t && typeof t[e] !== 'function') {
 
 			t = e.tagName;
 
-			if (b(t)) {
+			if (isString(t)) {
 				var e = ht(e);
 				if (e && e !== r) {
 					return {
@@ -2223,9 +2222,9 @@ if (t && typeof t[e] !== 'function') {
 		const yt = 'StaticSRIErrorMonitor';
 
 		function wt(r, e, o) {
-			if (undefined === r && (r = tn()), undefined === e && (e = function() {
+			if (undefined === r && (r = getWindow()), undefined === e && (e = function() {
 				if ('Promise' in window) return Promise;
-			}()), undefined === o && (o = nn()), r && o && e) {
+			}()), undefined === o && (o = getFetch()), r && o && e) {
 				return function(n, t) {
 					n = Mt(gt(t, n.onError, e, o), r);
 					r.addEventListener('error', n, false);
@@ -2234,32 +2233,28 @@ if (t && typeof t[e] !== 'function') {
 			}
 		}
 
-		function bt(o) {
-			if (undefined === o) {
-				o = rn();
+		function makeTrackerOnElement(el) {
+			if (undefined === el) {
+				el = getDocument();
 			}
 
-			return function(n) {
-				var t = L(jt(100), 2);
-				const r = t[0];
-				const e = t[1];
-				var t = L(Tt(n.maxBreadcrumbs), 2);
-				var n = t[0];
-				var t = t[1];
-				var t = Ot(t);
+			return function(config) {
+				const [ r, e ] = __read(jt(100), 2);
+				const [ getEvents, saveEvent ] = __read(makeEventMemo(config.maxBreadcrumbs), 2);
+				const t2 = annotateEventWithPath(saveEvent);
 
-				if (o) {
-					o.addEventListener('click', r('click', xt(t, 'dom')));
-					o.addEventListener('keypress', e(xt(t, 'dom')));
+				if (el) {
+					el.addEventListener('click', r('click', withCaught(t2, 'dom')));
+					el.addEventListener('keypress', e(withCaught(t2, 'dom')));
 				}
 
-				return [ n ];
+				return [ getEvents ];
 			};
 		}
 
 		function _t(u) {
 			if (undefined === u) {
-				u = tn();
+				u = getWindow();
 			}
 
 			return function(n, r) {
@@ -2302,13 +2297,13 @@ if (t && typeof t[e] !== 'function') {
 			return function(o) {
 				let n;
 
-				if (w(u.all)) {
+				if (isFunction(u.all)) {
 					u.all([ r(o, {
 						cache: 'force-cache',
 					}).then(n => n.ok ? n : new Response()), (n = o + '?vt=' + Date.now(), r(n, {
 						cache: 'no-store',
 					}).then(n => n.ok ? n : new Response())) ]).then(n => {
-						var n = L(n, 2);
+						var n = __read(n, 2);
 						const r = n[0];
 						const e = n[1];
 						if (r.status === 200 && e.status === 200) {
@@ -2321,7 +2316,7 @@ if (t && typeof t[e] !== 'function') {
 						let t; let r; let e;
 
 						if (n && i) {
-							r = (t = L(n, 3))[0];
+							r = (t = __read(n, 3))[0];
 							e = t[1];
 
 							if (t[2] && r !== e) {
@@ -2339,7 +2334,7 @@ if (t && typeof t[e] !== 'function') {
 												static_file_url: p(e).href || '',
 											},
 										};
-									}.apply(undefined, a([], L(n), true)),
+									}.apply(undefined, __spreadArray([], __read(n), true)),
 								});
 							}
 						}
@@ -2362,8 +2357,8 @@ if (t && typeof t[e] !== 'function') {
 					return;
 				}
 
-				if (w((n = t).getAttribute) ? n.getAttribute('integrity') : n.integrity) {
-					n = w((n = t).getAttribute) ? n.getAttribute('src') : n.src || n.href || '';
+				if (isFunction((n = t).getAttribute) ? n.getAttribute('integrity') : n.integrity) {
+					n = isFunction((n = t).getAttribute) ? n.getAttribute('src') : n.src || n.href || '';
 					t = ((t = t.tagName) === null || undefined === t ? undefined : t.toLowerCase()) || '';
 
 					if (n && t && n !== location.href) {
@@ -2376,7 +2371,7 @@ if (t && typeof t[e] !== 'function') {
 			function i(t, r) {
 				let e;
 				return function(n) {
-					u = undefined;
+					timeout = undefined;
 
 					if (n && e !== n) {
 						r({
@@ -2387,13 +2382,13 @@ if (t && typeof t[e] !== 'function') {
 				};
 			}
 
-			let u;
+			let timeout;
 			return [ i, function(e) {
-				return function(n) {
+				return function(event) {
 					let t;
 
 					try {
-						t = n.target;
+						t = event.target;
 					} catch (n) {
 						return;
 					}
@@ -2401,56 +2396,52 @@ if (t && typeof t[e] !== 'function') {
 					const r = t && t.tagName;
 
 					if (r && (r === 'INPUT' || r === 'TEXTAREA' || t.isContentEditable)) {
-						if (!u) {
-							i('input', e)(n);
+						if (!timeout) {
+							i('input', e)(event);
 						}
 
-						clearTimeout(u);
-						u = window.setTimeout(() => {
-							u = undefined;
+						clearTimeout(timeout);
+						timeout = window.setTimeout(() => {
+							timeout = undefined;
 						}, o);
 					}
 				};
 			} ];
 		};
-		var xt = function(t, r) {
-			return function(n) {
+		var withCaught = function(fn, r) {
+			return function(arg) {
 				if (r) {
 					try {
-						t(n);
+						fn(arg);
 					} catch (n) {}
 				}
 			};
 		};
-		var Ot = function(r) {
+		var annotateEventWithPath = function(fn) {
 			return function(n) {
 				let t;
 
 				try {
-					t = n.event.target ? Z(n.event.target) : Z(n.event);
+					t = n.event.target ? extractDomPath(n.event.target) : extractDomPath(n.event);
 				} catch (n) {
 					t = '<unknown>';
 				}
 
 				if (t.length !== 0) {
-					r({
+					fn({
 						category: 'ui.' + n.name,
 						message: t,
 					});
 				}
 			};
 		};
-		var Tt = function(t) {
-			if (undefined === t) {
-				t = 20;
-			}
-
+		var makeEventMemo = function(t = 20) {
 			let r = [];
 			return [ function() {
 				return r;
 			}, function(n) {
 				n = { ...n, timestamp: new Date().getTime() };
-				r = t >= 0 ? a(a([], L(r), true), [ n ], true).slice(-t) : a(a([], L(r), true), [ n ], true);
+				r = t >= 0 ? [ ...r, n ].slice(-t) : [ ...r, n ];
 			} ];
 		};
 		const Et = 'JSExceptionMonitor';
@@ -2484,7 +2475,7 @@ if (t && typeof t[e] !== 'function') {
 							return n instanceof Error;
 					}
 				}(n)) { t = n } else {
-					if (o(n) || i(n)) {
+					if (isObject2(n) || isEvent(n)) {
 						try {
 							t = {
 								message: JSON.stringify(n),
@@ -2492,7 +2483,7 @@ if (t && typeof t[e] !== 'function') {
 						} catch (n) {}
 					}
 
-					if (b(n)) {
+					if (isString(n)) {
 						t = {
 							message: n,
 						};
@@ -2543,7 +2534,7 @@ if (t && typeof t[e] !== 'function') {
 		function Dt() {}
 
 		let At;
-		let It = (n(Ct, At = Rt), Ct.prototype.send = function() {
+		let It = (__extends(Ct, At = Rt), Ct.prototype.send = function() {
 			clearTimeout(this.n);
 			this.t();
 		}, Ct.prototype.t = function() {
@@ -2585,15 +2576,15 @@ if (t && typeof t[e] !== 'function') {
 		}
 
 		function Ht(n, t) {
-			return y(n) ? y(t) ? { ...n, overrides: t } : n : {};
+			return isObject(n) ? isObject(t) ? { ...n, overrides: t } : n : {};
 		}
 
 		function Lt(n, t) {
 			let r; let e;
 
-			if (y(n)) {
+			if (isObject(n)) {
 				try {
-					for (var o = T(Object.keys(n)), i = o.next(); !i.done; i = o.next()) if (typeof n[i.value] !== t) return;
+					for (var o = __values(Object.keys(n)), i = o.next(); !i.done; i = o.next()) if (typeof n[i.value] !== t) return;
 				} catch (n) {
 					r = {
 						error: n,
@@ -2646,14 +2637,14 @@ if (t && typeof t[e] !== 'function') {
 
 		const qt = {
 			supportBatch: true,
-			terminatedPreCollect: j,
-			config: j,
-			cover: j,
-			accumulate: j,
-			reportDirectly: j,
-			batch: j,
-			average: j,
-			customReport: j,
+			terminatedPreCollect: nothing,
+			config: nothing,
+			cover: nothing,
+			accumulate: nothing,
+			reportDirectly: nothing,
+			batch: nothing,
+			average: nothing,
+			customReport: nothing,
 		};
 		const Jt = function(n) {
 			const e = this;
@@ -2707,7 +2698,7 @@ if (t && typeof t[e] !== 'function') {
 			};
 
 			this.log = (n = n.transport) !== null && undefined !== n ? n : qt;
-			this.supportBatch = w(this.log.batch);
+			this.supportBatch = isFunction(this.log.batch);
 		};
 
 		let Ut;
@@ -2719,7 +2710,7 @@ if (t && typeof t[e] !== 'function') {
 			let o = n;
 
 			try {
-				for (var i = T(t), u = i.next(); !u.done; u = i.next()) {
+				for (var i = __values(t), u = i.next(); !u.done; u = i.next()) {
 					const c = u.value;
 					if (o == null) return;
 					o = o[c];
@@ -2740,8 +2731,8 @@ if (t && typeof t[e] !== 'function') {
 
 			return o;
 		};
-		const Gt = (n($t, Ut = It), $t.prototype._shouldSend = function(n) {
-			if (!y(n) || !n.event) return true;
+		const Gt = (__extends($t, Ut = It), $t.prototype._shouldSend = function(n) {
+			if (!isObject(n) || !n.event) return true;
 			let t = this.options.monitors;
 
 			if (n.name === jn || n.name === Bn) {
@@ -2753,13 +2744,13 @@ if (t && typeof t[e] !== 'function') {
 				const r = n.sendParams;
 				let t = n.ajaxMonitor;
 
-				if (c(n = t.whitelistUrls) && n.length > 0) {
+				if (isArray(n = t.whitelistUrls) && n.length > 0) {
 					var e = S(t.whitelistUrls || []);
 					return !(e && e.test(r.event.ax_url));
 				}
 
 				if ((e = S(t.ignore || [])) && e.test(r.event.ax_url)) return true;
-				if ((e = t.statusCodeSample) && u(e, r.event.ax_status)) return R(e[r.event.ax_status]);
+				if ((e = t.statusCodeSample) && hasOwnProperty(e, r.event.ax_status)) return R(e[r.event.ax_status]);
 
 				if (t = t.requestUrlSample) {
 					let o = true;
@@ -2785,7 +2776,7 @@ if (t && typeof t[e] !== 'function') {
 				staticErrorMonitor: t.StaticErrorMonitor,
 			}, t = n.sendParams, !(n = S(n.staticErrorMonitor.ignore || [])) || !n.test(t.event.st_src));
 		}, $t.prototype._modifyEvent = function(n) {
-			if (!n || !y(n)) return {};
+			if (!n || !isObject(n)) return {};
 			let t;
 			let r;
 			let e;
@@ -2794,8 +2785,8 @@ if (t && typeof t[e] !== 'function') {
 			var i = (i = {
 				sendParams: n,
 				performanceMonitor: o.PerformanceMonitor,
-			}, n = i.sendParams, (o = i.performanceMonitor) ? h() ? (i = n.event.isAsync ? n.event.load > o.spaSlowSessionTime : (t = window.performance.timing).loadEventEnd - t.navigationStart > o.slowSessionTime, c((t = n.event)?.resources) && (r = n.event.resources, e = S(o.geckoUrls || []), r.forEach((n, t) => {
-				if (r[t] && y(r[t]) && w(r[t].toJSON)) {
+			}, n = i.sendParams, (o = i.performanceMonitor) ? h() ? (i = n.event.isAsync ? n.event.load > o.spaSlowSessionTime : (t = window.performance.timing).loadEventEnd - t.navigationStart > o.slowSessionTime, isArray((t = n.event)?.resources) && (r = n.event.resources, e = S(o.geckoUrls || []), r.forEach((n, t) => {
+				if (r[t] && isObject(r[t]) && isFunction(r[t].toJSON)) {
 					r[t] = r[t].toJSON();
 					r[t].is_gecko = e && e.test(n.name || '') ? '1' : '0';
 				}
@@ -2924,7 +2915,7 @@ if (t && typeof t[e] !== 'function') {
 			};
 
 			i.terminatedPreCollect = function() {
-				if (N()) return i.terminated();
+				if (documentReadyStateComplete()) return i.terminated();
 				window.addEventListener('load', i.terminated);
 			};
 
@@ -2950,7 +2941,7 @@ if (t && typeof t[e] !== 'function') {
 					return r;
 				}(t, [ 'context' ]);
 				var t = i.options.commonParams;
-				var r = { ...y(t.context) ? t.context : {}, ...y(r) ? r : {} };
+				var r = { ...isObject(t.context) ? t.context : {}, ...isObject(r) ? r : {} };
 				var r = { ...t, context: r };
 
 				return { jsBase: r,
@@ -2979,11 +2970,11 @@ if (t && typeof t[e] !== 'function') {
 					const o = {};
 
 					try {
-						for (var i = T(n), u = i.next(); !u.done; u = i.next()) {
+						for (var i = __values(n), u = i.next(); !u.done; u = i.next()) {
 							const c = u.value.split('=');
-							const f = b(c[0]) && c[0].trim();
+							const f = isString(c[0]) && c[0].trim();
 
-							if (f && b(c[1])) {
+							if (f && isString(c[1])) {
 								o[f] = c[1].trim();
 							}
 						}
@@ -3133,15 +3124,15 @@ if (t && typeof t[e] !== 'function') {
 			for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
 			var r = n[2];
-			const i = Gn.apply(undefined, a([], L(n), true));
+			const i = Gn.apply(undefined, __spreadArray([], __read(n), true));
 			if (r) return i;
 
 			if (i) {
-				var r = L(ir(), 2);
+				var r = __read(ir(), 2);
 				const u = r[0];
 				const c = r[1];
 				return function(n, t) {
-					var t = L(i(n, t, c), 4);
+					var t = __read(i(n, t, c), 4);
 					const r = t[0];
 					const e = t[1];
 					const o = t[2];
@@ -3162,7 +3153,7 @@ if (t && typeof t[e] !== 'function') {
 			let t;
 			const r = _({}, (t = (n = undefined === n ? {} : n).commonParams) !== null && undefined !== t ? t : {});
 
-			if (!y(n)) return r;
+			if (!isObject(n)) return r;
 			const e = [ 'bid', 'context', 'pid', 'slardar_web_id', 'performanceAuto', 'region', 'env', 'release' ];
 			f(n, (n, t) => {
 				if (l(e, n)) {
@@ -3181,7 +3172,7 @@ if (t && typeof t[e] !== 'function') {
 			let t;
 			const r = _({}, (t = (n = undefined === n ? {} : n).flags) !== null && undefined !== t ? t : {});
 
-			if (!y(n)) return r;
+			if (!isObject(n)) return r;
 			const e = [ 'hookXHR', 'hookFetch', 'enableFMP', 'enablePerformance', 'enableStaticError', 'enableCatchJSError' ];
 			f(n, (n, t) => {
 				if (l(e, n)) {
@@ -3218,8 +3209,8 @@ if (t && typeof t[e] !== 'function') {
 
 					if (c) {
 						if (o.enableCatchJSError) {
-							r = L(hn(bt, {}, c), 1)[0];
-							e = L(hn(_t, {
+							r = __read(invoke2(makeTrackerOnElement, {}, c), 1)[0];
+							e = __read(invoke2(_t, {
 								getBreadcrumbs: r,
 							}, c), 1)[0];
 						}
@@ -3234,15 +3225,15 @@ if (t && typeof t[e] !== 'function') {
 						};
 
 						if (o.hookXHR) {
-							hn(_n, i, c);
+							invoke2(hookXHR, i, c);
 						}
 
 						if (o.hookFetch) {
-							hn(Pn, i, c);
+							invoke2(hookFetch, i, c);
 						}
 
 						if (o.enableStaticError) {
-							hn(pt, null, c);
+							invoke2(hookStaticError, null, c);
 						}
 
 						if (o.enablePerformance) {
@@ -3256,16 +3247,16 @@ if (t && typeof t[e] !== 'function') {
 							};
 
 							if (o.enableFMP) {
-								f = hn(zn, u.FMPMonitor);
-								f = L(hn(Nn, { ...i, fmpMonitor: f }, c), 3)[2];
+								f = invoke2(zn, u.FMPMonitor);
+								f = __read(invoke2(Nn, { ...i, fmpMonitor: f }, c), 3)[2];
 							} else {
-								n = (a = L(hn(Nn, i, c), 4))[1];
+								n = (a = __read(invoke2(Nn, i, c), 4))[1];
 								f = a[2];
 								t = a[3];
 							}
 						}
 
-						hn(wt, {
+						invoke2(wt, {
 							onError(n) {
 								if (e) {
 									n = Ht(e(n), undefined);
@@ -3273,7 +3264,7 @@ if (t && typeof t[e] !== 'function') {
 								}
 							},
 						}, c);
-						var a = L(hn(ot, {}, c), 1)[0];
+						var a = __read(invoke2(ot, {}, c), 1)[0];
 						return [ e, a, f, n, t ];
 					}
 				}();
@@ -3303,23 +3294,23 @@ if (t && typeof t[e] !== 'function') {
 							FMPMonitor: {},
 						}, t.monitors);
 
-						if (t.ajaxWhitelistUrls && c(t.ajaxWhitelistUrls)) {
+						if (t.ajaxWhitelistUrls && isArray(t.ajaxWhitelistUrls)) {
 							n.AjaxMonitor.whitelistUrls = (n.AjaxMonitor.whitelistUrls || []).concat(t.ajaxWhitelistUrls);
 						}
 
-						if (t.ignoreAjax && c(t.ignoreAjax)) {
+						if (t.ignoreAjax && isArray(t.ignoreAjax)) {
 							n.AjaxMonitor.ignore = (n.AjaxMonitor.ignore || []).concat(t.ignoreAjax);
 						}
 
-						if (t.fmpIgnoreTags && c(t.fmpIgnoreTags)) {
+						if (t.fmpIgnoreTags && isArray(t.fmpIgnoreTags)) {
 							n.FMPMonitor.ignoreTags = t.fmpIgnoreTags;
 						}
 
-						if (u(t, 'geckoUrls')) {
+						if (hasOwnProperty(t, 'geckoUrls')) {
 							n.PerformanceMonitor.geckoUrls = t.geckoUrls;
 						}
 
-						if (t.ignoreStatic && c(t.ignoreStatic)) {
+						if (t.ignoreStatic && isArray(t.ignoreStatic)) {
 							n.StaticErrorMonitor.ignore = (n.StaticErrorMonitor.ignore || []).concat(t.ignoreStatic);
 						}
 
@@ -3358,7 +3349,7 @@ if (t && typeof t[e] !== 'function') {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
 				let r;
-				let e = L(d || [], 5);
+				let e = __read(d || [], 5);
 				const o = e[0];
 				let i = e[1];
 				const u = e[2];
@@ -3366,7 +3357,7 @@ if (t && typeof t[e] !== 'function') {
 				const f = e[4];
 
 				if (n[0] === 'config') {
-					if (!y(n[1])) return;
+					if (!isObject(n[1])) return;
 					e = n[1];
 					p = { ...p || {}, ...e || {} };
 					m(p);
@@ -3406,32 +3397,32 @@ if (t && typeof t[e] !== 'function') {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
 				try {
-					return er.apply(undefined, a([], L(n), true));
+					return er.apply(undefined, __spreadArray([], __read(n), true));
 				} catch (n) {}
 			}).version = '1.1.61';
 			or.r = 1;
 			rr[It] = or;
 		}
 
-		var r = t[c];
+		var r = t[isArray];
 
-		t[c] = function(n, t) {
-			if (n == a) {
-				d(i, t);
+		t[isArray] = function(n, t) {
+			if (n == __spreadArray) {
+				d(isEvent, t);
 			}
 
 			if (n == v) {
-				d(u, t);
+				d(hasOwnProperty, t);
 			}
 
 			return r.apply(null, arguments);
 		};
 
-		d(o, n => {
-			t[e].apply(null, n);
+		d(isObject2, n => {
+			t[extendStatics].apply(null, n);
 		});
-		t[c] = r;
-		n = 1;
+		t[isArray] = r;
+		__extends = 1;
 	}, 1);
 }
 

@@ -3,7 +3,7 @@ function i() {}
 function t(i, n) {
 	i.nativeBase = i.nativeBase || {};
 	i.nativeBase.url = location.href;
-	i.nativeBase.navigation_id = u;
+	i.nativeBase.navigation_id = navigation_id;
 
 	if (n) {
 		i.serviceType = n;
@@ -23,7 +23,7 @@ const r = function(i, n, t) {
 		t[i].apply(t, n);
 	}
 };
-var u = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, i => {
+const navigation_id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, i => {
 	const n = 16 * Math.random() | 0;
 	return (i === 'x' ? n : 3 & n | 8).toString(16);
 });
