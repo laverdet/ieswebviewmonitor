@@ -17,9 +17,8 @@ function n(i) {
 }
 
 let o;
-const e = window;
 const r = function(i, n, t) {
-	if (typeof (t = undefined === t ? e : t)[i] === 'function') {
+	if (typeof (t = undefined === t ? window : t)[i] === 'function') {
 		t[i].apply(t, n);
 	}
 };
@@ -27,26 +26,26 @@ const navigation_id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, i 
 	const n = 16 * Math.random() | 0;
 	return (i === 'x' ? n : 3 & n | 8).toString(16);
 });
-const c = function(i, n) {
+function c(i, n) {
 	if (!i) return i;
 	i = Object.prototype.toString.call(i) === '[object Array]' ? i.map(i => t(i, n)) : t(i, n);
 
 	try {
 		return JSON.parse(JSON.stringify(i));
 	} catch (i) {}
-};
-var a = function(i, n, t) {
+}
+function a(i, n, t) {
 	let o;
 
 	if (x()) {
 		if (o = c(n, t)) {
-			if (e.webkit) (t = (n = (t = (n = e.webkit)?.messageHandlers)?.[i])?.postMessage)?.call?.(o); else r(i, [ o ]);
+			if (window.webkit) (t = (n = (t = (n = window.webkit)?.messageHandlers)?.[i])?.postMessage)?.call?.(o); else r(i, [ o ]);
 		}
 	}
-};
-var x = function() {
-	return e.location.href !== 'about:blank';
-};
+}
+function x() {
+	return window.location.href !== 'about:blank';
+}
 let l = 'iesLiveTimingMonitor';
 const v = l + 'Batch';
 const f = l + 'ReportStage';
@@ -67,7 +66,7 @@ const s = {
 	reportDirectly(i, n) {
 		a('iesLiveTimingMonitorReportDirectly', i, n);
 	},
-	batch: (l = (l = e.webkit)?.messageHandlers) !== null && undefined !== l && l[v] || e[v] ? function(i) {
+	batch: (l = (l = window.webkit)?.messageHandlers) !== null && undefined !== l && l[v] || window[v] ? function(i) {
 		a(v, i);
 	} : null,
 	average(i, n) {
@@ -76,26 +75,26 @@ const s = {
 	customReport: n,
 };
 
-e.jsIESLiveTimingMonitor = s;
-e.jsIESWebviewMonitor = {
+window.jsIESLiveTimingMonitor = s;
+window.jsIESWebviewMonitor = {
 	customReport: n,
 };
-e.bdPerformance = {
+window.bdPerformance = {
 	paintEntries: [],
 	setFirstPaintTiming: i,
 	setFirstMeaningfulPaintTiming: i,
 };
 o = 'DOMContentLoaded';
 
-if (e) {
-	e.addEventListener(o, () => {
+if (window) {
+	window.addEventListener(o, () => {
 		a(f, {
 			stage: o,
 		}, 'pv');
 		setTimeout(() => {
 			let i;
 
-			if (e.history.length <= 1) {
+			if (window.history.length <= 1) {
 				i = {
 					url: location.href,
 					duration: performance.now(),

@@ -1,8 +1,8 @@
 const t = window;
-const e = 'SlardarHybrid';
+const kSlardarHybrid = 'SlardarHybrid';
 const n = undefined;
 
-if (t && typeof t[e] !== 'function') {
+if (t && typeof t[kSlardarHybrid] !== 'function') {
 	const o = [];
 	var i = [];
 	var u = [];
@@ -11,8 +11,8 @@ if (t && typeof t[e] !== 'function') {
 	const a = 'error';
 	const v = 'unhandledrejection';
 
-	t[e] = function() {
-		return n ? t[e].apply(null, arguments) : o.push(arguments);
+	t[kSlardarHybrid] = function() {
+		return n ? t[kSlardarHybrid].apply(null, arguments) : o.push(arguments);
 	};
 
 	try {
@@ -22,10 +22,11 @@ if (t && typeof t[e] !== 'function') {
 
 	setTimeout(() => {
 		try {
-			t[f](__spreadArray, s);
-			t[f](v, l);
+			t[f](__spreadArray, mergeInto);
+			t[f](isPlainObject, l);
 		} catch (n) {}
 
+		// tslib
 		var extendStatics = function(n, t) {
 			return (extendStatics = Object.setPrototypeOf || {
 				__proto__: [],
@@ -40,6 +41,7 @@ if (t && typeof t[e] !== 'function') {
 			})(n, t);
 		};
 
+		// tslib
 		function __extends(n, t) {
 			if (typeof t !== 'function' && t !== null) throw new TypeError('Class extends value ' + String(t) + ' is not a constructor or null');
 
@@ -51,6 +53,7 @@ if (t && typeof t[e] !== 'function') {
 			n.prototype = t === null ? Object.create(t) : (r.prototype = t.prototype, new r());
 		}
 
+		// tslib
 		var __assign = function() {
 			return (__assign = Object.assign || function(n) {
 				for (var t, r = 1, e = arguments.length; r < e; r++) {
@@ -65,6 +68,7 @@ if (t && typeof t[e] !== 'function') {
 			}).apply(this, arguments);
 		};
 
+		// tslib
 		function __values(n) {
 			const t = typeof Symbol === 'function' && Symbol.iterator;
 			const r = t && n[t];
@@ -83,6 +87,7 @@ if (t && typeof t[e] !== 'function') {
 			throw new TypeError(t ? 'Object is not iterable.' : 'Symbol.iterator is not defined.');
 		}
 
+		// tslib
 		// Reads values from an `Iterable` or `ArrayLike` object and returns the resulting array
 		function __read(n, t) {
 			let r = typeof Symbol === 'function' && n[Symbol.iterator];
@@ -111,6 +116,7 @@ if (t && typeof t[e] !== 'function') {
 			return u;
 		}
 
+		// tslib
 		function __spreadArray(to, from, pack) {
 			if (pack || arguments.length === 2) {
 				for (var e, o = 0, i = from.length; o < i; o++) {
@@ -176,7 +182,7 @@ if (t && typeof t[e] !== 'function') {
 
 					for (r in t) {
 						if (Object.prototype.hasOwnProperty.call(t, r) && undefined !== t[r]) {
-							if (isObject(t[r]) && v(t[r])) e[r] = s(isObject(n[r]) ? n[r] : {}, t[r]); else if (isArray(t[r])) e[r] = t[r].slice(); else e[r] = t[r];
+							if (isObject(t[r]) && isPlainObject(t[r])) e[r] = mergeInto(isObject(n[r]) ? n[r] : {}, t[r]); else if (isArray(t[r])) e[r] = t[r].slice(); else e[r] = t[r];
 						}
 					}
 
@@ -193,7 +199,7 @@ if (t && typeof t[e] !== 'function') {
 			for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
 			for (var r = {}, e = 0; e < n.length;) {
-				r = s(r, n[e]);
+				r = mergeInto(r, n[e]);
 				e++;
 			}
 
@@ -202,23 +208,27 @@ if (t && typeof t[e] !== 'function') {
 
 		var r = Object.getPrototypeOf ? Object.getPrototypeOf({}) : null;
 
-		function v(n) {
+		function isPlainObject(n) {
 			return Object.getPrototypeOf ? Object.getPrototypeOf(n) === r : n.constructor === Object;
 		}
 
-		function s(n, t) {
+		function mergeInto(obj1, obj2) {
 			let r;
-			const e = { ...n };
+			const e = { ...obj1 };
 
-			for (r in t) {
-				if (Object.prototype.hasOwnProperty.call(t, r) && undefined !== t[r]) {
-					if (isObject(t[r]) && v(t[r])) { e[r] = s(isObject(n[r]) ? n[r] : {}, t[r]) } else if (isArray(n[r]) || isArray(t[r])) {
+			for (r in obj2) {
+				if (Object.prototype.hasOwnProperty.call(obj2, r) && undefined !== obj2[r]) {
+					if (isObject(obj2[r]) && isPlainObject(obj2[r])) {
+						e[r] = mergeInto(isObject(obj1[r]) ? obj1[r] : {}, obj2[r]);
+					} else if (isArray(obj1[r]) || isArray(obj2[r])) {
 						e[r] = function t(n, r) {
 							n = isArray(n) ? n : [];
 							r = isArray(r) ? r : [];
-							return Array.prototype.concat.call(n, r).map(n => !(n instanceof RegExp) && (isArray(n) || isObject(n) && v(n)) ? isArray(n) ? t([], n) : s({}, n) : n);
-						}(n[r], t[r]);
-					} else { e[r] = t[r] }
+							return [ ...n, ...r ].map(n => !(n instanceof RegExp) && (isArray(n) || isObject(n) && isPlainObject(n)) ? isArray(n) ? t([], n) : mergeInto({}, n) : n);
+						}(obj1[r], obj2[r]);
+					} else {
+						e[r] = obj2[r];
+					}
 				}
 			}
 
@@ -234,15 +244,15 @@ if (t && typeof t[e] !== 'function') {
 			}
 		}
 
-		function d() {
+		function hasWindow() {
 			return Boolean(isObject(window));
 		}
 
-		function h() {
-			return d() && isObject(window.performance) && Boolean(isObject(window.performance.timing));
+		function hasPerformanceTiming() {
+			return hasWindow() && isObject(window.performance) && Boolean(isObject(window.performance.timing));
 		}
 
-		function p(n) {
+		function parseURL(n) {
 			const t = document.createElement('a');
 			t.href = n;
 			n = t.pathname || '/';
@@ -308,9 +318,9 @@ if (t && typeof t[e] !== 'function') {
 			return r.join('\r\n');
 		}
 
-		function E(n) {
+		function recordRequestDestination(n) {
 			const t = {};
-			const r = p(n);
+			const r = parseURL(n);
 			t.ax_protocol = r.protocol;
 			t.ax_domain = r.hostname;
 			t.ax_path = r.pathname;
@@ -320,7 +330,7 @@ if (t && typeof t[e] !== 'function') {
 			return t;
 		}
 
-		function S(n) {
+		function makeRegexpFromPatterns(n) {
 			return isArray(n) && n.length ? function(n) {
 				for (var t = [], r = n.length, e = 0; e < r; e++) {
 					const o = n[e];
@@ -340,7 +350,7 @@ if (t && typeof t[e] !== 'function') {
 				n = window;
 			}
 
-			return d() && (t = n.screen) !== null && undefined !== t && t.width && (r = n.screen) !== null && undefined !== r && r.height ? n.screen.width + 'x' + n.screen.height : '0x0';
+			return hasWindow() && (t = n.screen) !== null && undefined !== t && t.width && (r = n.screen) !== null && undefined !== r && r.height ? n.screen.width + 'x' + n.screen.height : '0x0';
 		};
 		const k = function() {
 			const n = 'unknown';
@@ -584,7 +594,7 @@ if (t && typeof t[e] !== 'function') {
 			var e = (n = e || {}).bid;
 			var n = n.web_id;
 			var o = (o || {}).sampleHitTrace;
-			var t = (t = t, r = p(r = r), t = p(t), r.protocol === t.protocol && r.host === t.host);
+			var t = (t = t, r = parseURL(r = r), t = parseURL(t), r.protocol === t.protocol && r.host === t.host);
 			return e && n && o && t;
 		}
 
@@ -643,7 +653,7 @@ if (t && typeof t[e] !== 'function') {
 				t();
 			} ];
 		};
-		const invoke2 = function(n, nextArg1, nextArg2, args) {
+		const invokeInvoke = function(fn, nextArg1, nextArg2, args) {
 			if (undefined === nextArg1) {
 				nextArg1 = {};
 			}
@@ -653,7 +663,7 @@ if (t && typeof t[e] !== 'function') {
 			}
 
 			try {
-				const o = n.apply(undefined, [ ...args ]);
+				const o = fn.apply(undefined, [ ...args ]);
 				return o && o(nextArg1, nextArg2) || [];
 			} catch (n) {
 				return [];
@@ -750,24 +760,22 @@ if (t && typeof t[e] !== 'function') {
 			return (0, __read(yn(t), 5)[4])(n).pop();
 		}
 
-		function hookXHR(n, e) {
-			if (undefined === n) {
-				n = getXMLHttpRequest();
+		function hookXHR(xhrFn, documentHref) {
+			if (undefined === xhrFn) {
+				xhrFn = getXMLHttpRequest();
 			}
 
-			if (undefined === e) {
-				e = location === null || undefined === location ? undefined : location.href;
+			if (undefined === documentHref) {
+				documentHref = location === null || undefined === location ? undefined : location.href;
 			}
 
-			const o = n && n.prototype;
+			const o = xhrFn && xhrFn.prototype;
 			if (o) {
 				return function(n, t) {
-					var r = __read(dn(n), 2);
-					var n = r[0];
-					var r = r[1];
-					makeHook(o, 'open', xn)();
-					makeHook(o, 'send', Tn)(n, t, e || '');
-					makeHook(o, 'setRequestHeader', On)();
+					const [ n, r ] = __read(dn(n), 2);
+					makeHook(o, 'open', hookXHROpen)();
+					makeHook(o, 'send', hookXHRSend)(n, t, documentHref || '');
+					makeHook(o, 'setRequestHeader', hookXHRSetRequestHeader)();
 					return [ r ];
 				};
 			}
@@ -779,7 +787,7 @@ if (t && typeof t[e] !== 'function') {
 			return e = !(t = undefined === t ? true : t) ? isString(e) ? e.split('?')[0] : e : e;
 		}
 
-		const Mn = function(n, t, r, e) {
+		function makeAjaxEvent(n, t, r, e) {
 			var o = n._method;
 			let i = n._requestHeaders;
 			const u = n._url;
@@ -844,21 +852,21 @@ if (t && typeof t[e] !== 'function') {
 				}(n);
 			}
 
-			(o = { ...o, ...E(u) }).resource_timing = bn(o.ax_href);
+			(o = { ...o, ...recordRequestDestination(u) }).resource_timing = bn(o.ax_href);
 			n = o.ax_status;
 
 			if (ln(t) && n[0] !== '2' && n[0] !== '3') {
 				o.ax_request = {
 					body: f ? '' + f : undefined,
-					search: p(u).search,
+					search: parseURL(u).search,
 					content_type: i && ((i = i.find(n => n[0].toLowerCase() === 'content-type')) === null || undefined === i ? undefined : i[1]),
 				};
 			}
 
 			return o;
-		};
-		const jn = 'AjaxMonitor';
-		const xn = function(o) {
+		}
+		const kAjaxMonitor = 'AjaxMonitor';
+		const hookXHROpen = function(o) {
 			return function() {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
@@ -870,7 +878,7 @@ if (t && typeof t[e] !== 'function') {
 				return o.apply(this, n);
 			};
 		};
-		const On = function(r) {
+		const hookXHRSetRequestHeader = function(r) {
 			return function() {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
@@ -881,10 +889,10 @@ if (t && typeof t[e] !== 'function') {
 				return r && r.apply(this, n);
 			};
 		};
-		const Tn = function(o, i, u, f) {
+		const hookXHRSend = function(o, i, u, f) {
 			let a = null;
 			return function() {
-				for (var n, t, c, r = [], e = 0; e < arguments.length; e++) r[e] = arguments[e];
+				for (var n, t, c, args = [], e = 0; e < arguments.length; e++) args[e] = arguments[e];
 
 				if (fn(i, this._url, f)) {
 					n = (t = i.commonParams || {}).bid;
@@ -901,17 +909,17 @@ if (t && typeof t[e] !== 'function') {
 
 					if (this.readyState === 4 && i) {
 						i({
-							name: jn,
+							name: kAjaxMonitor,
 							type: 'get',
-							event: Mn(c, e, o, u),
+							event: makeAjaxEvent(c, e, o, u),
 						});
 					}
 
 					return r && r.apply(this, n);
 				})(i, a, u, f);
 				this._start = Date.now();
-				this._data = r == null ? undefined : r[0];
-				return o.apply(this, r);
+				this._data = args == null ? undefined : args[0];
+				return o.apply(this, args);
 			};
 		};
 
@@ -933,7 +941,7 @@ if (t && typeof t[e] !== 'function') {
 				u = gn(r, false, o);
 				t.ax_request = {
 					body: (t = e, t = vn(r = r, o) ? r.body : t == null ? undefined : t.body) === null || undefined === t ? undefined : t.toString(),
-					search: p(u).search,
+					search: parseURL(u).search,
 					content_type: function(n, t, r) {
 						if (n) {
 							if (sn(n, r)) return n.get(t) || undefined;
@@ -954,7 +962,7 @@ if (t && typeof t[e] !== 'function') {
 			if (undefined === e && (e = getFetch() && getWindow()), undefined === o && (o = window.Headers), undefined === i && (i = window.Request), undefined === u && (u = location === null || undefined === location ? undefined : location.href), e && o && i) {
 				return function(n, t) {
 					const [ n2, r ] = dn(n);
-					makeHook(e, 'fetch', Fn)(n2, t, o, i, u || '');
+					makeHook(e, 'fetch', hookFetchEntry)(n2, t, o, i, u || '');
 					return [ r ];
 				};
 			}
@@ -985,7 +993,7 @@ if (t && typeof t[e] !== 'function') {
 			}, r ];
 		}
 
-		function Rn(n, u) {
+		function readMutationEvent(n, u) {
 			const c = [ 'img', 'script', 'iframe', 'link', 'audio', 'video', 'source' ];
 			const t = (n = __read(pn(n, n => {
 				let t; let r;
@@ -1159,7 +1167,7 @@ if (t && typeof t[e] !== 'function') {
 				} ]), 2);
 				const m = p[0];
 				const y = p[1];
-				var w = __read(Rn(O, () => r(t() + 5e3)) || [], 2);
+				var w = __read(readMutationEvent(O, () => r(t() + 5e3)) || [], 2);
 				var p = w[0];
 				const b = w[1];
 
@@ -1298,9 +1306,9 @@ if (t && typeof t[e] !== 'function') {
 				const b = t[0];
 				const _ = t[1];
 				const g = ft();
-				let M = __read(invoke2(ot), 1)[0];
-				let j = __read(invoke2(Qn, n), 1)[0];
-				const x = __read(invoke2(Kn, {
+				let M = __read(invokeInvoke(ot), 1)[0];
+				let j = __read(invokeInvoke(Qn, n), 1)[0];
+				const x = __read(invokeInvoke(Kn, {
 					prePerformanceObserver: e,
 				}, n => {
 					n = n.lcp;
@@ -1309,13 +1317,13 @@ if (t && typeof t[e] !== 'function') {
 					});
 				}), 1)[0];
 				const O = K(n => n.fid);
-				const T = __read(invoke2(Wn, 0, O), 1)[0];
+				const T = __read(invokeInvoke(Wn, 0, O), 1)[0];
 				let E = K(Y);
-				let S = __read(invoke2(tt, 0, E), 1)[0];
+				let S = __read(invokeInvoke(tt, 0, E), 1)[0];
 				let P = K(n => {
 					if (n && n > 0) return Math.max(Math.round(n - l), 0);
 				});
-				var n = __read(invoke2(i, n), 4);
+				var n = __read(invokeInvoke(i, n), 4);
 				let k = n[0];
 				let R = n[3];
 				let D = Q(P);
@@ -1435,11 +1443,11 @@ if (t && typeof t[e] !== 'function') {
 						isAsync: 1,
 						prePerformanceObserver: e,
 					};
-					var n = __read(invoke2(ot, t), 1);
+					var n = __read(invokeInvoke(ot, t), 1);
 					M = n[0];
-					n = __read(invoke2(Qn, t), 1);
+					n = __read(invokeInvoke(Qn, t), 1);
 					j = n[0];
-					t = __read(invoke2(i, { ...t, minValue: l }), 4);
+					t = __read(invokeInvoke(i, { ...t, minValue: l }), 4);
 					k = t[0];
 					R = t[3];
 					P = K(n => {
@@ -1456,7 +1464,7 @@ if (t && typeof t[e] !== 'function') {
 
 					(E = K(Y))(r);
 					D = Q(P);
-					v = invoke2(zn);
+					v = invokeInvoke(zn);
 				}, function() {
 					if (d && g() && !h) {
 						if (s.isAsync) {
@@ -1476,8 +1484,8 @@ if (t && typeof t[e] !== 'function') {
 			};
 		}
 
-		const Bn = 'FetchMonitor';
-		const Fn = function(i, h, u, p, m, y) {
+		const kFetchMonitor = 'FetchMonitor';
+		const hookFetchEntry = function(i, h, u, p, m, y) {
 			return function(f, a) {
 				if (undefined === a) {
 					a = {};
@@ -1524,14 +1532,14 @@ if (t && typeof t[e] !== 'function') {
 					return (t = vn(n, r) ? n.method || t : t).toLowerCase();
 				}(f, a, m);
 
-				var l = { ...l, ...E(gn(f, false, m)) };
+				var l = { ...l, ...recordRequestDestination(gn(f, false, m)) };
 				const d = function() {
 					l.resource_timing = bn(l.ax_href);
 					Sn(h, l, f, a, m, p);
 
 					if (u != null) {
 						u({
-							name: Bn,
+							name: kFetchMonitor,
 							type: 'get',
 							event: l,
 						});
@@ -1597,7 +1605,7 @@ if (t && typeof t[e] !== 'function') {
 				},
 			};
 		};
-		var Un = function(n, r, t, e) {
+		function Un(n, r, t, e) {
 			if (!n || e.indexOf(n.tagName) > -1) return 0;
 			var o = n.children;
 			var o = [].slice.call(undefined === o ? [] : o).reduceRight((n, t) => n + Un(t, r + 1, n > 0, e), 0);
@@ -1611,8 +1619,8 @@ if (t && typeof t[e] !== 'function') {
 			}
 
 			return o + 1 + 0.5 * r;
-		};
-		const Xn = function(n) {
+		}
+		function Xn(n) {
 			var t = __read(undefined === n ? [] : n);
 			var n = t[0];
 			var t = t.slice(1);
@@ -1629,8 +1637,8 @@ if (t && typeof t[e] !== 'function') {
 				time: n == null ? undefined : n.time,
 				rate: 0,
 			} ])[1].time || 0;
-		};
-		var zn = function(v, s, l) {
+		}
+		function zn(v, s, l) {
 			let n;
 
 			if (undefined === v) {
@@ -1686,7 +1694,7 @@ if (t && typeof t[e] !== 'function') {
 				});
 				return [ a, n, n.bind(null, c) ];
 			};
-		};
+		}
 		var Gn = function(b, _, g, M, j) {
 			if (undefined === b) {
 				b = getXMLHttpRequest();
@@ -2202,7 +2210,7 @@ if (t && typeof t[e] !== 'function') {
 						name: lt,
 						type: 'get',
 						event: function(n, t, r) {
-							const e = p(n);
+							const e = parseURL(n);
 							const o = {
 								ev_type: 'static',
 								st_type: t,
@@ -2233,39 +2241,31 @@ if (t && typeof t[e] !== 'function') {
 			}
 		}
 
-		function makeTrackerOnElement(el) {
-			if (undefined === el) {
-				el = getDocument();
-			}
-
+		function makeInteractionTrackerOnElement(el = getDocument()) {
 			return function(config) {
-				const [ r, e ] = __read(jt(100), 2);
+				const [ triggerNow, triggerDeferred ] = __read(debouncedEventRecorder(100), 2);
 				const [ getEvents, saveEvent ] = __read(makeEventMemo(config.maxBreadcrumbs), 2);
 				const t2 = annotateEventWithPath(saveEvent);
 
 				if (el) {
-					el.addEventListener('click', r('click', withCaught(t2, 'dom')));
-					el.addEventListener('keypress', e(withCaught(t2, 'dom')));
+					el.addEventListener('click', triggerNow('click', withCaught(t2, 'dom')));
+					el.addEventListener('keypress', triggerDeferred(withCaught(t2, 'dom')));
 				}
 
 				return [ getEvents ];
 			};
 		}
 
-		function _t(u) {
-			if (undefined === u) {
-				u = getWindow();
-			}
-
-			return function(n, r) {
-				const t = n.getBreadcrumbs;
-				var e = n.enableCatchGlobalJSError;
+		function makeUnhandledErrorTrackerOnElement(el = getWindow()) {
+			return function(config, r) {
+				const t = config.getBreadcrumbs;
+				var e = config.enableCatchGlobalJSError;
 				const o = undefined === e || e;
-				var e = n.catchUnhandledRejection;
+				var e = config.catchUnhandledRejection;
 				var e = undefined === e || e;
-				var n = n.release;
-				const i = kt(undefined === n ? '' : n, () => t && t() || []);
-				var n = function(t) {
+				var config = config.release;
+				const i = kt(undefined === config ? '' : config, () => t && t() || []);
+				var config = function(t) {
 					return function(n) {
 						n = t(n);
 						n = n && i(n);
@@ -2276,13 +2276,13 @@ if (t && typeof t[e] !== 'function') {
 					};
 				};
 
-				if (u) {
+				if (el) {
 					if (o) {
-						u.addEventListener('error', n(St));
+						el.addEventListener('error', config(St));
 					}
 
 					if (e) {
-						u.addEventListener('unhandledrejection', n(Pt));
+						el.addEventListener('unhandledrejection', config(Pt));
 					}
 				}
 
@@ -2331,7 +2331,7 @@ if (t && typeof t[e] !== 'function') {
 												real_file_size: t,
 												error_file_context: r,
 												static_file_src: e,
-												static_file_url: p(e).href || '',
+												static_file_url: parseURL(e).href || '',
 											},
 										};
 									}.apply(undefined, __spreadArray([], __read(n), true)),
@@ -2367,23 +2367,23 @@ if (t && typeof t[e] !== 'function') {
 				}
 			};
 		};
-		var jt = function(o) {
-			function i(t, r) {
+		var debouncedEventRecorder = function(o) {
+			function trigger(eventName, record) {
 				let e;
 				return function(n) {
 					timeout = undefined;
 
 					if (n && e !== n) {
-						r({
+						record({
 							event: e = n,
-							name: t,
+							name: eventName,
 						});
 					}
 				};
 			}
 
 			let timeout;
-			return [ i, function(e) {
+			return [ trigger, function(e) {
 				return function(event) {
 					let t;
 
@@ -2397,7 +2397,7 @@ if (t && typeof t[e] !== 'function') {
 
 					if (r && (r === 'INPUT' || r === 'TEXTAREA' || t.isContentEditable)) {
 						if (!timeout) {
-							i('input', e)(event);
+							trigger('input', e)(event);
 						}
 
 						clearTimeout(timeout);
@@ -2514,7 +2514,7 @@ if (t && typeof t[e] !== 'function') {
 				}
 			};
 		};
-		var Rt = (Dt.prototype.sendEvent = function(n) {
+		var slardarCtor = (Dt.prototype.sendEvent = function(n) {
 			n = this.getEventToBeSent(n);
 
 			if (n) {
@@ -2534,7 +2534,7 @@ if (t && typeof t[e] !== 'function') {
 		function Dt() {}
 
 		let At;
-		let It = (__extends(Ct, At = Rt), Ct.prototype.send = function() {
+		const It = (__extends(Ct, At = slardarCtor), Ct.prototype.send = function() {
 			clearTimeout(this.n);
 			this.t();
 		}, Ct.prototype.t = function() {
@@ -2702,7 +2702,7 @@ if (t && typeof t[e] !== 'function') {
 		};
 
 		let Ut;
-		const Xt = ((rr = {})[Et] = [ 'exception.name', 'exception.message', 'exception.stack' ], rr[lt] = [ 'st_src', 'st_type', 'st_domain', 'st_path' ], rr[Bn] = [ 'ax_url', 'ax_status', 'ax_type' ], rr[jn] = [ 'ax_url', 'ax_status', 'ax_type' ], rr);
+		const Xt = ((rr = {})[Et] = [ 'exception.name', 'exception.message', 'exception.stack' ], rr[lt] = [ 'st_src', 'st_type', 'st_domain', 'st_path' ], rr[kFetchMonitor] = [ 'ax_url', 'ax_status', 'ax_type' ], rr[kAjaxMonitor] = [ 'ax_url', 'ax_status', 'ax_type' ], rr);
 		const zt = function(n, t) {
 			let r;
 			let e;
@@ -2731,25 +2731,25 @@ if (t && typeof t[e] !== 'function') {
 
 			return o;
 		};
-		const Gt = (__extends($t, Ut = It), $t.prototype._shouldSend = function(n) {
+		const TransportHandler = (__extends($t, Ut = It), $t.prototype._shouldSend = function(n) {
 			if (!isObject(n) || !n.event) return true;
 			let t = this.options.monitors;
 
-			if (n.name === jn || n.name === Bn) {
-				const r = S(z || []);
+			if (n.name === kAjaxMonitor || n.name === kFetchMonitor) {
+				const r = makeRegexpFromPatterns(z || []);
 				if (r && r.test(n.event.ax_url)) return true;
 			}
 
-			return n.name === jn || n.name === Bn ? function(n) {
+			return n.name === kAjaxMonitor || n.name === kFetchMonitor ? function(n) {
 				const r = n.sendParams;
 				let t = n.ajaxMonitor;
 
 				if (isArray(n = t.whitelistUrls) && n.length > 0) {
-					var e = S(t.whitelistUrls || []);
+					var e = makeRegexpFromPatterns(t.whitelistUrls || []);
 					return !(e && e.test(r.event.ax_url));
 				}
 
-				if ((e = S(t.ignore || [])) && e.test(r.event.ax_url)) return true;
+				if ((e = makeRegexpFromPatterns(t.ignore || [])) && e.test(r.event.ax_url)) return true;
 				if ((e = t.statusCodeSample) && hasOwnProperty(e, r.event.ax_status)) return R(e[r.event.ax_status]);
 
 				if (t = t.requestUrlSample) {
@@ -2759,7 +2759,7 @@ if (t && typeof t[e] !== 'function') {
 						let t;
 
 						if (!o) {
-							if ((t = S([ n.url ])) != null && t.test(r.event.ax_url)) {
+							if ((t = makeRegexpFromPatterns([ n.url ])) != null && t.test(r.event.ax_url)) {
 								o = false;
 								i = R(n.sampleRate);
 							}
@@ -2774,7 +2774,7 @@ if (t && typeof t[e] !== 'function') {
 			}) : n.name === ut || n.name !== lt || (n = {
 				sendParams: n,
 				staticErrorMonitor: t.StaticErrorMonitor,
-			}, t = n.sendParams, !(n = S(n.staticErrorMonitor.ignore || [])) || !n.test(t.event.st_src));
+			}, t = n.sendParams, !(n = makeRegexpFromPatterns(n.staticErrorMonitor.ignore || [])) || !n.test(t.event.st_src));
 		}, $t.prototype._modifyEvent = function(n) {
 			if (!n || !isObject(n)) return {};
 			let t;
@@ -2785,7 +2785,7 @@ if (t && typeof t[e] !== 'function') {
 			var i = (i = {
 				sendParams: n,
 				performanceMonitor: o.PerformanceMonitor,
-			}, n = i.sendParams, (o = i.performanceMonitor) ? h() ? (i = n.event.isAsync ? n.event.load > o.spaSlowSessionTime : (t = window.performance.timing).loadEventEnd - t.navigationStart > o.slowSessionTime, isArray((t = n.event)?.resources) && (r = n.event.resources, e = S(o.geckoUrls || []), r.forEach((n, t) => {
+			}, n = i.sendParams, (o = i.performanceMonitor) ? hasPerformanceTiming() ? (i = n.event.isAsync ? n.event.load > o.spaSlowSessionTime : (t = window.performance.timing).loadEventEnd - t.navigationStart > o.slowSessionTime, isArray((t = n.event)?.resources) && (r = n.event.resources, e = makeRegexpFromPatterns(o.geckoUrls || []), r.forEach((n, t) => {
 				if (r[t] && isObject(r[t]) && isFunction(r[t].toJSON)) {
 					r[t] = r[t].toJSON();
 					r[t].is_gecko = e && e.test(n.name || '') ? '1' : '0';
@@ -2820,7 +2820,7 @@ if (t && typeof t[e] !== 'function') {
 					this.o('cover', t, n.event.ev_type);
 				}
 
-				if ([ lt, rt, jn, Bn, Et, yt ].indexOf(n.name) > -1) {
+				if ([ lt, rt, kAjaxMonitor, kFetchMonitor, Et, yt ].indexOf(n.name) > -1) {
 					this.o('reportDirectly', t, n.event.ev_type);
 				}
 
@@ -3066,7 +3066,7 @@ if (t && typeof t[e] !== 'function') {
 			}, n);
 		}
 
-		function Yt() {
+		function performanceDotNow() {
 			return Date.now() - performance.timing.navigationStart;
 		}
 
@@ -3078,7 +3078,7 @@ if (t && typeof t[e] !== 'function') {
 				let r;
 
 				if (n.enable) {
-					r = Yt();
+					r = performanceDotNow();
 
 					if (!t) {
 						e({
@@ -3088,7 +3088,7 @@ if (t && typeof t[e] !== 'function') {
 					}
 
 					setTimeout(() => {
-						const n = Yt();
+						const n = performanceDotNow();
 						const t = n - r;
 
 						if (t - i < 10) {
@@ -3193,14 +3193,14 @@ if (t && typeof t[e] !== 'function') {
 				return t.stop;
 			} ];
 		};
-		var Rt = function() {
+		var slardarCtor = function() {
 			function v() {
-				(l = new Gt(h)).updateConfig(h);
+				(l = new TransportHandler(h)).updateConfig(h);
 
 				const n = function() {
 					let n;
 					let t;
-					let r;
+					let getBreadcrumbs;
 					let e;
 					const o = h.flags;
 					var i = h.commonParams;
@@ -3209,9 +3209,9 @@ if (t && typeof t[e] !== 'function') {
 
 					if (c) {
 						if (o.enableCatchJSError) {
-							r = __read(invoke2(makeTrackerOnElement, {}, c), 1)[0];
-							e = __read(invoke2(_t, {
-								getBreadcrumbs: r,
+							getBreadcrumbs = __read(invokeInvoke(makeInteractionTrackerOnElement, {}, c), 1)[0];
+							e = __read(invokeInvoke(makeUnhandledErrorTrackerOnElement, {
+								getBreadcrumbs,
 							}, c), 1)[0];
 						}
 
@@ -3225,15 +3225,15 @@ if (t && typeof t[e] !== 'function') {
 						};
 
 						if (o.hookXHR) {
-							invoke2(hookXHR, i, c);
+							invokeInvoke(hookXHR, i, c);
 						}
 
 						if (o.hookFetch) {
-							invoke2(hookFetch, i, c);
+							invokeInvoke(hookFetch, i, c);
 						}
 
 						if (o.enableStaticError) {
-							invoke2(hookStaticError, null, c);
+							invokeInvoke(hookStaticError, null, c);
 						}
 
 						if (o.enablePerformance) {
@@ -3247,16 +3247,16 @@ if (t && typeof t[e] !== 'function') {
 							};
 
 							if (o.enableFMP) {
-								f = invoke2(zn, u.FMPMonitor);
-								f = __read(invoke2(Nn, { ...i, fmpMonitor: f }, c), 3)[2];
+								f = invokeInvoke(zn, u.FMPMonitor);
+								f = __read(invokeInvoke(Nn, { ...i, fmpMonitor: f }, c), 3)[2];
 							} else {
-								n = (a = __read(invoke2(Nn, i, c), 4))[1];
+								n = (a = __read(invokeInvoke(Nn, i, c), 4))[1];
 								f = a[2];
 								t = a[3];
 							}
 						}
 
-						invoke2(wt, {
+						invokeInvoke(wt, {
 							onError(n) {
 								if (e) {
 									n = Ht(e(n), undefined);
@@ -3264,7 +3264,7 @@ if (t && typeof t[e] !== 'function') {
 								}
 							},
 						}, c);
-						var a = __read(invoke2(ot, {}, c), 1)[0];
+						var a = __read(invokeInvoke(ot, {}, c), 1)[0];
 						return [ e, a, f, n, t ];
 					}
 				}();
@@ -3378,7 +3378,7 @@ if (t && typeof t[e] !== 'function') {
 					});
 				}
 
-				if (n[0] !== 'getLatestResource') return n[0] === 'performanceInit' ? f && f() : n[0] === 'performanceSend' ? c && c() : void (l && l.sendEvent && (n[0] !== 'captureException' ? n[0] === 'emit' && n[1] === 'custom' && (r = Ft(n[2])) && l.sendEvent(r) : o && (r = Ht(o(n[1]), n[2]), l.sendEvent(r))));
+				if (n[0] !== 'getLatestResource') { return n[0] === 'performanceInit' ? f && f() : n[0] === 'performanceSend' ? c && c() : void (l && l.sendEvent && (n[0] !== 'captureException' ? n[0] === 'emit' && n[1] === 'custom' && (r = Ft(n[2])) && l.sendEvent(r) : o && (r = Ht(o(n[1]), n[2]), l.sendEvent(r)))) }
 				i = i && i();
 				a = i && (l == null ? undefined : l.getEventToBeSent(i));
 				return Nt({
@@ -3388,11 +3388,8 @@ if (t && typeof t[e] !== 'function') {
 			};
 		};
 
-		rr = window;
-		It = 'SlardarHybrid';
-
-		if (!(!rr || (or = rr[It]) !== null && undefined !== or && or.r)) {
-			er = Rt();
+		if (!(!window || (or = window.SlardarHybrid) !== null && undefined !== or && or.r)) {
+			er = slardarCtor();
 			(or = function() {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
@@ -3401,24 +3398,25 @@ if (t && typeof t[e] !== 'function') {
 				} catch (n) {}
 			}).version = '1.1.61';
 			or.r = 1;
-			rr[It] = or;
+			window.SlardarHybrid = or;
 		}
 
 		var r = t[isArray];
 
+		// ??
 		t[isArray] = function(n, t) {
 			if (n == __spreadArray) {
-				d(isEvent, t);
+				hasWindow(isEvent, t);
 			}
 
-			if (n == v) {
-				d(hasOwnProperty, t);
+			if (n == isPlainObject) {
+				hasWindow(hasOwnProperty, t);
 			}
 
 			return r.apply(null, arguments);
 		};
 
-		d(isObject2, n => {
+		hasWindow(isObject2, n => {
 			t[extendStatics].apply(null, n);
 		});
 		t[isArray] = r;
