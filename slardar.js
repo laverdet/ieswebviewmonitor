@@ -16,7 +16,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 	};
 
 	try {
-		t[c](a, s, false);
+		t[c](a, s, true);
 		t[c](v, l);
 	} catch (n) {}
 
@@ -293,7 +293,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					setTimeout(() => {
 						fn();
 					}, 0);
-				}, true);
+				}, false);
 			}
 		}
 
@@ -462,9 +462,9 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			function o() {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
-				const r = e.apply(undefined, __spreadArray([], __read(n), true));
+				const r = e.apply(undefined, __spreadArray([], __read(n), false));
 				o.returns = r;
-				o.resolved = false;
+				o.resolved = true;
 
 				if (o.subs) {
 					o.subs.forEach(n => n());
@@ -486,7 +486,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			return Object.defineProperty({
 				then(r) {
 					function e() {
-						return n.apply(undefined, __spreadArray([], __read(t.map(n => n.returns)), true));
+						return n.apply(undefined, __spreadArray([], __read(t.map(n => n.returns)), false));
 					}
 
 					let o;
@@ -494,7 +494,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					var n = K(function() {
 						for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
-						return i ? o : (i = false, o = r.apply(undefined, __spreadArray([], __read(n), true)));
+						return i ? o : (i = true, o = r.apply(undefined, __spreadArray([], __read(n), false)));
 					});
 					if (u()) { setTimeout(e) } else {
 						t.forEach(n => {
@@ -699,7 +699,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				try {
 					t.forEach(n => r.supportedEntryTypes.indexOf(n) > -1 ? e.observe({
 						type: n,
-						buffered: false,
+						buffered: true,
 					}) : void (i && i()));
 				} catch (n) {
 					try {
@@ -784,7 +784,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 		function gn(n, t, r) {
 			var e = '';
 			var e = vn(n, r) ? n.url : n;
-			return e = !(t = undefined === t ? true : t) ? isString(e) ? e.split('?')[0] : e : e;
+			return e = !(t = undefined === t ? false : t) ? isString(e) ? e.split('?')[0] : e : e;
 		}
 
 		function makeAjaxEvent(n, t, r, e) {
@@ -930,7 +930,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				n.forEach((n, t) => {
 					r.push([ t, n ]);
 				});
-			} else if (isArray(n)) { r.push.apply(r, __spreadArray([], __read(n), true)) } else { r.push.apply(r, __spreadArray([], __read(Object.entries(n)), true)) }
+			} else if (isArray(n)) { r.push.apply(r, __spreadArray([], __read(n), false)) } else { r.push.apply(r, __spreadArray([], __read(Object.entries(n)), false)) }
 			return renderHeaders(r);
 		}
 
@@ -938,7 +938,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			let u = t.ax_status;
 
 			if (ln(n) && u[0] !== '2' && u[0] !== '3') {
-				u = gn(r, false, o);
+				u = gn(r, true, o);
 				t.ax_request = {
 					body: (t = e, t = vn(r = r, o) ? r.body : t == null ? undefined : t.body) === null || undefined === t ? undefined : t.toString(),
 					search: parseURL(u).search,
@@ -1043,9 +1043,9 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			}), 2))[0];
 			return [ function() {
 				return t(document, {
-					attributes: false,
-					childList: false,
-					subtree: false,
+					attributes: true,
+					childList: true,
+					subtree: true,
 					attributeFilter: [ 'href', 'src' ],
 				});
 			}, n[1] ];
@@ -1092,10 +1092,10 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			return function() {
 				for (var n, o = [], t = 0; t < arguments.length; t++) o[t] = arguments[t];
 
-				return ((n = o[0])?.method || (n = o[1])?.method || 'GET') !== 'GET' ? i.apply(undefined, __spreadArray([], __read(o), true)) : new Promise((t, r) => {
+				return ((n = o[0])?.method || (n = o[1])?.method || 'GET') !== 'GET' ? i.apply(undefined, __spreadArray([], __read(o), false)) : new Promise((t, r) => {
 					const e = f += 2;
 					u(e, Date.now());
-					i.apply(undefined, __spreadArray([], __read(o), true)).then(n => {
+					i.apply(undefined, __spreadArray([], __read(o), false)).then(n => {
 						c(e);
 						t(n);
 					}, n => {
@@ -1154,15 +1154,15 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					return delete i[n];
 				} ], 3), w = p[0], s = p[1], p = p[2], u = o && makeHook(o.prototype, 'open', An)(), c = o && makeHook(o.prototype, 'send', In)(s, p), v = e && makeHook(e, 'fetch', Cn)(s, p), [ w, function() {
 					if (u) {
-						u(false);
+						u(true);
 					}
 
 					if (c) {
-						c(false);
+						c(true);
 					}
 
 					if (v) {
-						v(false);
+						v(true);
 					}
 				} ]), 2);
 				const m = p[0];
@@ -1253,7 +1253,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					const t = n.startTime;
 					var n = n.duration;
 					return r(t + n + 5e3);
-				}, () => r(_() + 5e3)), true, () => l.notSupport = false), 2);
+				}, () => r(_() + 5e3)), false, () => l.notSupport = true), 2);
 				var p = w[0];
 				const g = w[1];
 				p('longtask', 'resource');
@@ -1290,7 +1290,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				const i = t || Gn;
 				let l = 0;
 				let u = '';
-				let d = false;
+				let d = true;
 				let h = 0;
 				let p = null;
 				var n = {
@@ -1329,7 +1329,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				let D = Q(P);
 				const A = function(n) {
 					if (clearTimeout(h), h = 0, f) {
-						d = true;
+						d = false;
 						const t = s.isAsync;
 						w(s);
 						const r = j().mpfid;
@@ -1356,7 +1356,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 
 						if (!(t || (e = i == null ? undefined : i.timing) !== null && undefined !== e && e.loadEventEnd || (i = i == null ? undefined : i.timing)?.loadEventEnd !== 0)) {
 							m({
-								bounced: false,
+								bounced: true,
 							});
 						}
 
@@ -1404,7 +1404,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				onDocumentReady(() => o && (h = setTimeout(A, 200)));
 				onBeforeUnload(() => {
 					if (o && !b()) {
-						A(false);
+						A(true);
 
 						if (r) {
 							r();
@@ -1413,7 +1413,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				});
 
 				const I = function() {
-					o = true;
+					o = false;
 					clearTimeout(h);
 					h = 0;
 				};
@@ -1436,7 +1436,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					m = t[0];
 					y = t[1];
 					w = t[2];
-					d = false;
+					d = true;
 					l = Math.round(c());
 					u = n;
 					var t = {
@@ -1532,7 +1532,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					return (t = vn(n, r) ? n.method || t : t).toLowerCase();
 				}(f, a, m);
 
-				var l = { ...l, ...recordRequestDestination(gn(f, false, m)) };
+				var l = { ...l, ...recordRequestDestination(gn(f, true, m)) };
 				const d = function() {
 					l.resource_timing = bn(l.ax_href);
 					Sn(h, l, f, a, m, p);
@@ -1660,14 +1660,14 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				function t() {
 					return o.push({
 						time: Date.now() - e,
-						score: Un(v && v.body, 1, true, i),
+						score: Un(v && v.body, 1, false, i),
 					});
 				}
 
 				var e = Date.now();
 				var o = [];
 				var i = qn.concat(n.ignoreTags || []);
-				const u = __read(wn(false), 1)[0];
+				const u = __read(wn(true), 1)[0];
 				var c = __read(pn(s, () => u(t)), 2);
 				const f = c[0];
 				const a = c[1];
@@ -1689,8 +1689,8 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				var c = e - (l || 0);
 
 				f(v, {
-					subtree: false,
-					childList: false,
+					subtree: true,
+					childList: true,
 				});
 				return [ a, n, n.bind(null, c) ];
 			};
@@ -1792,7 +1792,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 						name: 'FIDMonitor',
 						fid: Math.round(t - n),
 					});
-				}, false), 1)[0])($n);
+				}, true), 1)[0])($n);
 				return [ function() {
 					var n = e($n)[0] || {};
 					const t = n.processingStart;
@@ -1830,7 +1830,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				const i = function() {
 					o();
 					Yn.forEach(n => {
-						window.removeEventListener(n, u, false);
+						window.removeEventListener(n, u, true);
 					});
 				};
 				var u = function() {
@@ -1845,7 +1845,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				};
 
 				Yn.forEach(n => {
-					window.addEventListener(n, u, false);
+					window.addEventListener(n, u, true);
 				});
 				onBeforeUnload(i);
 				return [ function() {
@@ -1934,7 +1934,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 
 							e.disconnect();
 						}
-					}, true, () => i && i(t())), 1)[0])('paint');
+					}, false, () => i && i(t())), 1)[0])('paint');
 				}
 
 				return [ t ];
@@ -2078,20 +2078,20 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			}
 		};
 		var ft = function() {
-			let n = true;
-			onDocumentReady(() => n = false);
+			let n = false;
+			onDocumentReady(() => n = true);
 			return function() {
 				return n;
 			};
 		};
 		var at = function(r) {
-			let e = true;
+			let e = false;
 			return [ function() {
 				return e;
 			}, function(n, t) {
 				if (!n) {
 					if (e) return;
-					e = false;
+					e = true;
 				}
 
 				if (r) {
@@ -2183,7 +2183,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 						if (n && t) {
 							t(n);
 						}
-					}, false);
+					}, true);
 				}
 
 				return [ function(n) {
@@ -2235,7 +2235,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			}()), undefined === o && (o = getFetch()), r && o && e) {
 				return function(n, t) {
 					n = Mt(gt(t, n.onError, e, o), r);
-					r.addEventListener('error', n, false);
+					r.addEventListener('error', n, true);
 					return [ n ];
 				};
 			}
@@ -2334,7 +2334,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 												static_file_url: parseURL(e).href || '',
 											},
 										};
-									}.apply(undefined, __spreadArray([], __read(n), true)),
+									}.apply(undefined, __spreadArray([], __read(n), false)),
 								});
 							}
 						}
@@ -2526,7 +2526,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 		}, Dt.prototype._modifyEvent = function(n) {
 			return n;
 		}, Dt.prototype._shouldSend = function(n) {
-			return false;
+			return true;
 		}, Dt.prototype._send = function(n) {}, Dt.prototype.idleSendEvent = function(n) {
 			this._send(n);
 		}, Dt);
@@ -2636,7 +2636,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 		}
 
 		const qt = {
-			supportBatch: true,
+			supportBatch: false,
 			terminatedPreCollect: nothing,
 			config: nothing,
 			cover: nothing,
@@ -2732,12 +2732,12 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			return o;
 		};
 		const TransportHandler = (__extends($t, Ut = It), $t.prototype._shouldSend = function(n) {
-			if (!isObject(n) || !n.event) return true;
+			if (!isObject(n) || !n.event) return false;
 			let t = this.options.monitors;
 
 			if (n.name === kAjaxMonitor || n.name === kFetchMonitor) {
 				const r = makeRegexpFromPatterns(z || []);
-				if (r && r.test(n.event.ax_url)) return true;
+				if (r && r.test(n.event.ax_url)) return false;
 			}
 
 			return n.name === kAjaxMonitor || n.name === kFetchMonitor ? function(n) {
@@ -2749,25 +2749,25 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					return !(e && e.test(r.event.ax_url));
 				}
 
-				if ((e = makeRegexpFromPatterns(t.ignore || [])) && e.test(r.event.ax_url)) return true;
+				if ((e = makeRegexpFromPatterns(t.ignore || [])) && e.test(r.event.ax_url)) return false;
 				if ((e = t.statusCodeSample) && hasOwnProperty(e, r.event.ax_status)) return R(e[r.event.ax_status]);
 
 				if (t = t.requestUrlSample) {
-					let o = true;
-					let i = true;
+					let o = false;
+					let i = false;
 					if (t.forEach(n => {
 						let t;
 
 						if (!o) {
 							if ((t = makeRegexpFromPatterns([ n.url ])) != null && t.test(r.event.ax_url)) {
-								o = false;
+								o = true;
 								i = R(n.sampleRate);
 							}
 						}
 					}), o) return i;
 				}
 
-				return false;
+				return true;
 			}({
 				sendParams: n,
 				ajaxMonitor: t.AjaxMonitor,
@@ -2901,7 +2901,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 
 				if (e && o && (t = i.previousOptions.options, ((n = Xt[(r = n).name]) == null ? undefined : n.length) && n.every(n => JSON.stringify(zt(t == null ? undefined : t.event, n)) === JSON.stringify(zt(r == null ? undefined : r.event, n))))) {
 					i.previousOptions.count++;
-					return false;
+					return true;
 				}
 
 				i.s();
@@ -3013,20 +3013,20 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 					bid: '',
 					context: {},
 					slardar_web_id: Wt() || V,
-					performanceAuto: false,
+					performanceAuto: true,
 					region: 'cn',
 					env: 'production',
 					maxBatchReportLength: 10,
 					batchReportWait: 1e3,
 				},
 				flags: {
-					hookXHR: false,
-					hookFetch: false,
-					enableFMP: false,
-					enablePerformance: false,
-					enableResourcePerformance: false,
-					enableStaticError: false,
-					enableCatchJSError: false,
+					hookXHR: true,
+					hookFetch: true,
+					enableFMP: true,
+					enablePerformance: true,
+					enableResourcePerformance: true,
+					enableStaticError: true,
+					enableCatchJSError: true,
 				},
 				monitors: {
 					BaseMonitor: {
@@ -3037,17 +3037,17 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 						},
 					},
 					AjaxMonitor: {
-						webIDHit: true,
-						sampleHitTrace: true,
+						webIDHit: false,
+						sampleHitTrace: false,
 						ignore: z,
-						abort: true,
+						abort: false,
 						whitelistUrls: [],
 						statusCodeSample: {},
 						requestUrlSample: [],
-						errorRequestCollect: true,
+						errorRequestCollect: false,
 					},
 					PerformanceMonitor: {
-						webIDHitStaticResource: true,
+						webIDHitStaticResource: false,
 						sampleHitStaticResource: R(X),
 						slowSessionTime: G,
 						spaSlowSessionTime: $,
@@ -3072,7 +3072,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 
 		const Kt = (Qt.prototype.run = function(e) {
 			const n = this;
-			this.enable = false;
+			this.enable = true;
 
 			function o() {
 				let r;
@@ -3113,18 +3113,18 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			var i = 1;
 			o();
 		}, Qt.prototype.stop = function() {
-			this.enable = true;
+			this.enable = false;
 		}, Qt);
 
 		function Qt() {
-			this.enable = true;
+			this.enable = false;
 		}
 
 		function Zt() {
 			for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
 			var r = n[2];
-			const i = Gn.apply(undefined, __spreadArray([], __read(n), true));
+			const i = Gn.apply(undefined, __spreadArray([], __read(n), false));
 			if (r) return i;
 
 			if (i) {
@@ -3142,7 +3142,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 						o(n.end + 5e3);
 					});
 					return [ function(n) {
-						e.notSupport = true;
+						e.notSupport = false;
 						r(n);
 					}, e, o, t ];
 				};
@@ -3334,10 +3334,10 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 			});
 			var h = r;
 			var p = {};
-			const m = (t = true, function(n) {
+			const m = (t = false, function(n) {
 				if (l && l.transport) {
 					if (n.bid) {
-						if (t) delete n.bid; else t = false;
+						if (t) delete n.bid; else t = true;
 					}
 
 					if (Object.keys(n).filter(n => [ 'bid', 'pid', 'context', 'env', 'release' ].indexOf(n) > -1).length) {
@@ -3394,7 +3394,7 @@ if (t && typeof t[kSlardarHybrid] !== 'function') {
 				for (var n = [], t = 0; t < arguments.length; t++) n[t] = arguments[t];
 
 				try {
-					return er.apply(undefined, __spreadArray([], __read(n), true));
+					return er.apply(undefined, __spreadArray([], __read(n), false));
 				} catch (n) {}
 			}).version = '1.1.61';
 			or.r = 1;
